@@ -70,7 +70,8 @@ public class Main {
 
             //Pruebas de ver la cita:
             hospital.visualizar_todos_pacientes();
-
+            
+            //Viendo si se actualiza como actividad verdecita
         }
     
     }
