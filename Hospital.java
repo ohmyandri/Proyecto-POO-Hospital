@@ -1,11 +1,14 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 
 public class Hospital {
     private String nombre_hospital;
     private String direccion_hospital;
     private List <Doctor> lista_doctores;
-    private List <Cita> lista_citas;
     private List <Paciente> lista_pacientes;
     
     //Constructor:
@@ -13,7 +16,6 @@ public class Hospital {
         this.nombre_hospital = nombre_hospital;
         this.direccion_hospital = direccion_hospital;
         this.lista_doctores = new ArrayList<>();
-        this.lista_citas = new ArrayList<>();
         this.lista_pacientes = new ArrayList<>();
     }
 
@@ -35,26 +37,128 @@ public class Hospital {
     }
 
     //Metodos para agregar personas a las listas:
-    public void agregar_paciente(Paciente nuevo_paciente){
-        lista_pacientes.add(nuevo_paciente);
-    }
-
     public void agregar_doctor(Doctor nuevo_doctor){
         lista_doctores.add(nuevo_doctor);
     }
 
-    public void agregar_cita(Cita nueva_cita){
-        lista_citas.add(nueva_cita);
+    public void agregar_paciente(Paciente nuevo_paciente){
+        lista_pacientes.add(nuevo_paciente);
     }
 
     //Metodos para visualizar personas:
     public void visualizar_todos_doctores(){
+        System.out.println("Lista de doctores:");
         for(int i = 0; i < lista_doctores.size(); i++){
+            System.out.println("Doctor [" + (i+1) + "]");
             System.out.println("Nombre: " + lista_doctores.get(i).nombre_persona);
-            System.out.println("Especialidad: " + lista_doctores.get(i).getExperiencia_medicina());
-            System.out.println("Años de experiencias: " + lista_doctores.get(i).getEspecialidad_medicina());
+            System.out.println("Especialidad: " + lista_doctores.get(i).getEspecialidad_medicina());
+            System.out.println("Años de experiencia: " + lista_doctores.get(i).getExperiencia_medicina());
             System.out.println();
         }
+    }
+
+    //Seleccionar un doctor en especifico:
+    public Doctor doctor_especifico(int i){
+        return lista_doctores.get(i);
+    }
+
+    //Visualizar todos los pacientes en el hospital:
+    public void visualizar_todos_pacientes(){
+        System.out.println("Lista de pacientes en el hospital:");
+        for(int i = 0; i < lista_pacientes.size(); i++){
+            //Paciente:
+            System.out.println("Paciente: " + lista_pacientes.get(i).getNombre_persona());
+            //Cita agendada por el paciente:
+            List <Cita> cita_agendada_paciente = lista_pacientes.get(i).getCitas_agendadas();
+            //Iterando por las citas del paciente
+            for(int j = 0; j < cita_agendada_paciente.size(); j++){
+                cita_agendada_paciente.get(j).visualizar_cita();
+            }
+            System.out.println();
+        }
+    }
+
+    public Cita agendarCita(Paciente paciente, Scanner scanner) {
+        // 1. Mostrar Doctores y Seleccionar uno
+        visualizar_todos_doctores();
+        
+        int doctorIndex = -1;
+        Doctor doctorSeleccionado = null;
+        
+        while (doctorSeleccionado == null) {
+            System.out.print("\nIngrese el número (Opción) del doctor que desea seleccionar: ");
+            try {
+                doctorIndex = scanner.nextInt() - 1;
+                scanner.nextLine(); // Consumir el salto de línea
+                
+                doctorSeleccionado = doctor_especifico(doctorIndex);
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un número para seleccionar al doctor.");
+                scanner.nextLine(); // Limpiar el buffer
+            }
+        }
+
+        System.out.println("\nDoctor seleccionado: " + doctorSeleccionado.getNombre_persona());
+        
+        // 2. Solicitar Fecha
+        LocalDate fechaCita = null;
+        while (fechaCita == null) {
+            System.out.println("\n--- Seleccione la Fecha de la Cita ---");
+            try {
+                System.out.print("Ingrese el año (Ej: 2025): ");
+                int anio = scanner.nextInt();
+                System.out.print("Ingrese el mes (1-12): ");
+                int mes = scanner.nextInt();
+                System.out.print("Ingrese el día: ");
+                int dia = scanner.nextInt();
+                scanner.nextLine();
+                
+                fechaCita = LocalDate.of(anio, mes, dia);
+                
+                if (fechaCita.isBefore(LocalDate.now())) {
+                    System.out.println("Error: No se puede agendar una cita en el pasado.");
+                    fechaCita = null;
+                }
+                
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese solo números para la fecha.");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Error: La fecha es inválida (ej: 30 de febrero). Intente de nuevo.");
+                scanner.nextLine();
+            }
+        }
+        
+        // 3. Solicitar Hora
+        LocalTime horaCita = null;
+        while (horaCita == null) {
+            System.out.println("\n--- Seleccione la Hora de la Cita ---");
+            try {
+                System.out.print("Ingrese la hora (formato 24h, Ej: 14 para 2 PM): ");
+                int horaInt = scanner.nextInt();
+                System.out.print("Ingrese los minutos (Ej: 00, 30): ");
+                int minutoInt = scanner.nextInt();
+                scanner.nextLine();
+                
+                horaCita = LocalTime.of(horaInt, minutoInt);
+                
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese solo números para la hora.");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Error: La hora es inválida (ej: 25 horas). Intente de nuevo.");
+                scanner.nextLine();
+            }
+        }
+        
+        // 4. Solicitar Motivo
+        System.out.print("\nIngrese el motivo de la cita: ");
+        String motivo = scanner.nextLine();
+        
+        // 5. Crear la Cita
+        // Aquí usamos el índice del doctor que el usuario seleccionó (doctorIndex)
+        Cita nuevaCita = new Cita(doctorIndex, paciente, fechaCita, horaCita, motivo);
+        return nuevaCita;
     }
 
 

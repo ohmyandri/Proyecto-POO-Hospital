@@ -60,4 +60,13 @@ public class Cita {
         this.motivo_cita = motivo_cita;
     }
 
+    //Ver cita:
+    public void visualizar_cita(){
+        //Mostrando al doctor:
+        System.out.println("Doctor: " );
+        System.out.println("Fecha: " + this.fecha);
+        System.out.println("Hora: " + this.hora);
+        System.out.println("Motivo de la cita: " + this.motivo_cita);
+    }
+
 }

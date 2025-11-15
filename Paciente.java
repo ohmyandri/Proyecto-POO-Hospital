@@ -1,12 +1,18 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Paciente extends Persona{
     //Agregando atributos mas específicos:
-    protected String CURP;
-    protected String numero_seguro_social;
+    private String CURP;
+    private String numero_seguro_social;
+    private List <Cita> citas_agendadas;
+
 
     Paciente(String nombre_persona, String direccion, int edad, int numero_telefono, String CURP, String numero_seguro_social) {
         super(nombre_persona, direccion, edad, numero_telefono);
         this.CURP = CURP;
         this.numero_seguro_social = numero_seguro_social;
+        this.citas_agendadas = new ArrayList<>();
     }
 
     //Getters y Setters:
@@ -24,5 +30,14 @@ public class Paciente extends Persona{
 
     public void setNumero_seguro_social(String numero_seguro_social) {
         this.numero_seguro_social = numero_seguro_social;
+    }
+
+    public List getCitas_agendadas(){
+        return citas_agendadas;
+    }
+
+    //Agregando una cita:
+    public void agregar_cita(Cita cita_agendada){
+        citas_agendadas.add(cita_agendada);
     }
 }
