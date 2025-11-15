@@ -15,8 +15,5 @@ public class Main {
         hospital.agregar_doctor(doctor_3);
     
         hospital.visualizar_todos_doctores();
-    
-        // Prueba!
-        //Prueba 2!
     }
 }
