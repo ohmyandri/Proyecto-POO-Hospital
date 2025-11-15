@@ -4,14 +4,14 @@ import java.time.LocalTime;
 
 public class Cita {
     //Agendar cita, en sí, tendrá datos como;
-    private Doctor doctor_seleccionado;
+    private int doctor_seleccionado; //Sera el index del doctor en una lista
     private Paciente paciente_agendado;
     private LocalDate fecha;
     private LocalTime hora;
     private String motivo_cita;
 
     //Constructor:
-    public Cita(Doctor doctor_seleccionado, Paciente paciente_agendado, LocalDate fecha, LocalTime hora, String motivo_cita) {
+    public Cita(int doctor_seleccionado, Paciente paciente_agendado, LocalDate fecha, LocalTime hora, String motivo_cita) {
         this.doctor_seleccionado = doctor_seleccionado;
         this.paciente_agendado = paciente_agendado;
         this.fecha = fecha;
@@ -20,11 +20,11 @@ public class Cita {
     }
 
     //Getters y Setter:
-    public Doctor getDoctor_seleccionado() {
+    public int getDoctor_seleccionado() {
         return doctor_seleccionado;
     }
 
-    public void setDoctor_seleccionado(Doctor doctor_seleccionado) {
+    public void setDoctor_seleccionado(int doctor_seleccionado) {
         this.doctor_seleccionado = doctor_seleccionado;
     }
 

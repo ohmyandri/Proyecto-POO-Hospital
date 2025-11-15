@@ -1,15 +1,21 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Hospital hospital = new Hospital("La Raza", "Azcapotzalco");
+        //Dando una bienvenida al sistema de agendar citas:
+        System.out.println("Sistema agendar citas del hospital: " + hospital.getNombre_hospital());
+        System.out.println("Ubicacion: " + hospital.getDireccion_hospital());
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        //Creando un doc
+        Doctor doctor_1 = new Doctor("Dr. Dominguez", "Avenida Central 101", 32, 552233445, "Medicina interna", 15);
+        Doctor doctor_2 = new Doctor("Dra. Ramírez", "Calle Falsa 123", 35, 551234567, "Pediatría", 8);
+        Doctor doctor_3 = new Doctor("Dr. Pérez", "Avenida Siempre Viva 742", 45, 557654321, "Cardiología", 20);        
+        
+        hospital.agregar_doctor(doctor_1);
+        hospital.agregar_doctor(doctor_2);
+        hospital.agregar_doctor(doctor_3);
+    
+        hospital.visualizar_todos_doctores();
+    
+    
     }
 }

@@ -45,4 +45,11 @@ public class Doctor extends Persona{
     }
     */
 
+    //Metodo presentarse sobre escrito
+    @Override
+    public void presentarse(){
+        System.out.println("Buenos dias, soy " + getNombre_persona());
+        System.out.println("Cuento con la especialidad de " + getEspecialidad_medicina() + ", y tengo una experiencia de "+ getExperiencia_medicina() + " años en ella");
+    }
+
 }
