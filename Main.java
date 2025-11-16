@@ -21,11 +21,12 @@ public class Main {
 
             //Menu externo, para registrar a un paciente
             int eleccion_exterior = 0;
-            while (eleccion_exterior != 3) {
+            while (eleccion_exterior != 4) {
                 System.out.println("\nBienvenido al hospital");
                 System.out.println("1. Agregar derecho habientes al hospital");
                 System.out.println("2. Seleccionar derecho habiente a usar");
-                System.out.println("3. Salir del sistema");
+                System.out.println("3. Panel de Administrador");
+                System.out.println("4. Salir del sistema");
                 System.out.print("Ingrese su opción: ");
                 if (sc.hasNextInt()) {
                         eleccion_exterior = sc.nextInt();
@@ -57,11 +58,13 @@ public class Main {
                                 
                                 //Menu Interno => PACIENTE
                                 int eleccion = 0;
-                                while (eleccion != 3) {
+                                while (eleccion != 5) {
                                     System.out.println("\nMENÚ PRINCIPAL");
                                     System.out.println("1. Crear y agendar una nueva cita");
                                     System.out.println("2. Visualizar mis citas agendadas");
-                                    System.out.println("3. Salir del sistema");
+                                    System.out.println("3. Modificar una cita agendada");
+                                    System.out.println("4. Cancelar una cita agendada");
+                                    System.out.println("5. Salir del sistema");
                                     System.out.print("Ingrese su opción: ");
                                     
                                     //Leyendo entrada del usuario
@@ -86,9 +89,21 @@ public class Main {
                                             hospital.agregar_paciente(derecho_habiente_temporal);
                                             break;
                                         
-                                        //Terminar poder ver las citas Agendadas!!!!
+                                        //Visualizar citas agendadas de un paciente
                                         case 2:
+                                            hospital.visualizar_cita_agendada_paciente(derecho_habiente_temporal);
                                             break;
+                                        
+                                        //Modificar una cita agendada:
+                                        case 3:
+                                            break;
+                                        
+                                        //Cancelar una cita
+                                        case 4:
+                                            break;
+
+                                        case 5:
+                                            eleccion = 5;
 
                                         default:
                                             break;
@@ -101,8 +116,16 @@ public class Main {
                             
                             break;
 
-
+                        case 3:
+                            break;
+                        
+                        case 4:
+                            eleccion_exterior = 4;
+                            break;
+                        
+                        //Caso default 
                         default:
+                            System.out.println("Intentaste acceder a algo incorrecto, prueba de nuevo");
                             break;
                     }
             }
