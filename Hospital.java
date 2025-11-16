@@ -78,24 +78,10 @@ public class Hospital {
             List <Cita> cita_agendada_paciente = lista_pacientes.get(i).getCitas_agendadas();
             //Iterando por las citas del paciente
             for(int j = 0; j < cita_agendada_paciente.size(); j++){
-                cita_agendada_paciente.get(j).visualizar_cita();
+                //Falta buscar que doctor le atiende:
+                //int ind_doctor = cita_agendada_paciente.get;
+                cita_agendada_paciente.get(j).visualizar_cita(lista_doctores);
             }
-            System.out.println();
-        }
-    }
-
-    //Visualizar derecho habientes del hospital:
-    public void visualizar_derecho_habientes(){
-        System.out.println("Lista de derecho habientes en el hospital:");
-        for(int i = 0; i < lista_derecho_habientes.size(); i++){
-            System.out.println("Derecho habiente [" + (i+1) + "]");
-            System.out.println("Nombre : " + lista_derecho_habientes.get(i).getNombre_persona());
-            System.out.println("Direccion : " + lista_derecho_habientes.get(i).getDireccion());
-            System.out.println("Edad : " + lista_derecho_habientes.get(i).getEdad());
-            System.out.println("Numero de telefono : " + lista_derecho_habientes.get(i).getNumero_telefono());
-            System.out.println("CURP : " + lista_derecho_habientes.get(i).getCURP());
-            System.out.println("NSS : " + lista_derecho_habientes.get(i).getNumero_seguro_social());
-            System.out.println("N. Citas agendadas : " + lista_derecho_habientes.get(i).getCitas_agendadas().size());
         }
     }
 
@@ -236,7 +222,31 @@ public class Hospital {
         return nuevaCita;
     }
 
+    //Visualizar citas agendadas
+    public void visualizar_cita_agendada_paciente(Paciente paciente_activo){
+        List <Cita> cita_agendada_paciente = paciente_activo.getCitas_agendadas();
+        for(int j = 0; j < cita_agendada_paciente.size(); j++){
+            cita_agendada_paciente.get(j).visualizar_cita(lista_doctores);
+        }
+    }
+
+    //Derecho habientes metodos:
+    public void visualizar_derecho_habientes(){
+        System.out.println("Lista de derecho habientes en el hospital:");
+        for(int i = 0; i < lista_derecho_habientes.size(); i++){
+            System.out.println("\nDerecho habiente [" + (i+1) + "]");
+            System.out.println("Nombre : " + lista_derecho_habientes.get(i).getNombre_persona());
+            System.out.println("Direccion : " + lista_derecho_habientes.get(i).getDireccion());
+            System.out.println("Edad : " + lista_derecho_habientes.get(i).getEdad());
+            System.out.println("Numero de telefono : " + lista_derecho_habientes.get(i).getNumero_telefono());
+            System.out.println("CURP : " + lista_derecho_habientes.get(i).getCURP());
+            System.out.println("NSS : " + lista_derecho_habientes.get(i).getNumero_seguro_social());
+            System.out.println("N. Citas agendadas : " + lista_derecho_habientes.get(i).getCitas_agendadas().size());
+        }
+    }
+
     public Paciente seleccion_derecho_habiente(int i){
-        return lista_derecho_habientes.get(i);
+        //Paso i--, ya que se trabaja index 0 based al mostrarlos a todos, por tanto hay que restar
+        return lista_derecho_habientes.get(i-1);
     }
 }
