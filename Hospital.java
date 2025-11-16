@@ -224,6 +224,7 @@ public class Hospital {
 
     //Visualizar citas agendadas
     public void visualizar_cita_agendada_paciente(Paciente paciente_activo){
+        System.out.println("Paciente: " + paciente_activo.getNombre_persona());
         List <Cita> cita_agendada_paciente = paciente_activo.getCitas_agendadas();
         for(int j = 0; j < cita_agendada_paciente.size(); j++){
             cita_agendada_paciente.get(j).visualizar_cita(lista_doctores);
