@@ -1,6 +1,7 @@
 //Agregue estos para tener un seguimiento de fecha y hora
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Cita {
     //Agendar cita, en sí, tendrá datos como;
@@ -61,9 +62,9 @@ public class Cita {
     }
 
     //Ver cita:
-    public void visualizar_cita(){
+    public void visualizar_cita(List <Doctor> lista_doctores){
         //Mostrando al doctor:
-        System.out.println("Doctor: " );
+        System.out.println("\nDoctor: " + lista_doctores.get(doctor_seleccionado).nombre_persona + " ,Especialidad: " + lista_doctores.get(doctor_seleccionado).getEspecialidad_medicina());
         System.out.println("Fecha: " + this.fecha);
         System.out.println("Hora: " + this.hora);
         System.out.println("Motivo de la cita: " + this.motivo_cita);
