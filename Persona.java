@@ -2,10 +2,10 @@ public abstract class Persona {
     protected String nombre_persona;
     protected String direccion;
     protected int edad;
-    protected int numero_telefono;
+    protected String numero_telefono;
 
     //Constructor
-    Persona(String nombre_persona, String direccion, int edad, int numero_telefono){
+    Persona(String nombre_persona, String direccion, int edad, String numero_telefono){
         this.nombre_persona = nombre_persona;
         this.direccion = direccion;
         this.edad = edad;
@@ -25,7 +25,7 @@ public abstract class Persona {
         return edad;
     }
 
-    public int getNumero_telefono() {
+    public String getNumero_telefono() {
         return numero_telefono;
     }
 
@@ -41,7 +41,7 @@ public abstract class Persona {
         this.edad = edad;
     }
 
-    public void setNumero_telefono(int numero_telefono) {
+    public void setNumero_telefono(String numero_telefono) {
         this.numero_telefono = numero_telefono;
     }
 

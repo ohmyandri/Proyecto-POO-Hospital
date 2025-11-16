@@ -8,7 +8,7 @@ public class Paciente extends Persona{
     private List <Cita> citas_agendadas;
 
 
-    Paciente(String nombre_persona, String direccion, int edad, int numero_telefono, String CURP, String numero_seguro_social) {
+    Paciente(String nombre_persona, String direccion, int edad, String numero_telefono, String CURP, String numero_seguro_social) {
         super(nombre_persona, direccion, edad, numero_telefono);
         this.CURP = CURP;
         this.numero_seguro_social = numero_seguro_social;

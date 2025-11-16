@@ -10,6 +10,7 @@ public class Hospital {
     private String direccion_hospital;
     private List <Doctor> lista_doctores;
     private List <Paciente> lista_pacientes;
+    private List <Paciente> lista_derecho_habientes;
     
     //Constructor:
     public Hospital(String nombre_hospital, String direccion_hospital){
@@ -17,6 +18,7 @@ public class Hospital {
         this.direccion_hospital = direccion_hospital;
         this.lista_doctores = new ArrayList<>();
         this.lista_pacientes = new ArrayList<>();
+        this.lista_derecho_habientes = new ArrayList<>();
     }
 
     //getters y setters para los atributos
@@ -45,9 +47,13 @@ public class Hospital {
         lista_pacientes.add(nuevo_paciente);
     }
 
+    public void agregar_derecho_habiente(Paciente nuevo_derecho_habiente){
+        lista_derecho_habientes.add(nuevo_derecho_habiente);
+    }
+
     //Metodos para visualizar personas:
     public void visualizar_todos_doctores(){
-        System.out.println("Lista de doctores:");
+        System.out.println("\nLista de doctores:");
         for(int i = 0; i < lista_doctores.size(); i++){
             System.out.println("Doctor [" + (i+1) + "]");
             System.out.println("Nombre: " + lista_doctores.get(i).nombre_persona);
@@ -78,7 +84,76 @@ public class Hospital {
         }
     }
 
-    public Cita agendarCita(Paciente paciente, Scanner scanner) {
+    //Visualizar derecho habientes del hospital:
+    public void visualizar_derecho_habientes(){
+        System.out.println("Lista de derecho habientes en el hospital:");
+        for(int i = 0; i < lista_derecho_habientes.size(); i++){
+            System.out.println("Derecho habiente [" + (i+1) + "]");
+            System.out.println("Nombre : " + lista_derecho_habientes.get(i).getNombre_persona());
+            System.out.println("Direccion : " + lista_derecho_habientes.get(i).getDireccion());
+            System.out.println("Edad : " + lista_derecho_habientes.get(i).getEdad());
+            System.out.println("Numero de telefono : " + lista_derecho_habientes.get(i).getNumero_telefono());
+            System.out.println("CURP : " + lista_derecho_habientes.get(i).getCURP());
+            System.out.println("NSS : " + lista_derecho_habientes.get(i).getNumero_seguro_social());
+            System.out.println("N. Citas agendadas : " + lista_derecho_habientes.get(i).getCitas_agendadas().size());
+        }
+    }
+
+    //Metodos para la creacion de objetos
+    public Paciente agregar_derecho_habiente(Scanner sc){
+        
+        System.out.println("\nREGISTRAR NUEVA PERSONA!");
+        
+        // 1. Datos String (usando nextLine())
+        System.out.print("Ingrese el nombre completo del paciente: ");
+        String nombre = sc.nextLine();
+        
+        System.out.print("Ingrese la dirección: ");
+        String direccion = sc.nextLine();
+        
+        System.out.print("Ingrese el CURP: ");
+        String curp = sc.nextLine();
+        
+        System.out.print("Ingrese el Número de Seguro Social (NSS): ");
+        String nss = sc.nextLine();
+        
+        // 2. Datos numéricos (usando nextInt() con manejo de errores)
+        int edad = -1;
+        while (edad < 0 || edad > 120) {
+            System.out.print("Ingrese la edad: ");
+            try {
+                edad = sc.nextInt();
+                sc.nextLine(); // Limpiar buffer
+                if (edad < 0 || edad > 120) {
+                    System.out.println("Error: Edad no válida. Debe estar entre 0 y 120.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un número para la edad.");
+                sc.nextLine(); // Limpiar buffer
+            }
+        }
+
+        String telefono = null;
+        while (telefono == null) {
+            System.out.print("Ingrese el número de teléfono: ");
+            try {
+                telefono = sc.nextLine();
+                sc.nextLine(); // Limpiar buffer
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un número correcto de el teléfono.");
+                sc.nextLine(); // Limpiar buffer
+            }
+        }
+        
+        // 3. Crear el objeto Paciente con todos los datos
+        Paciente nuevo_derecho_habiente = new Paciente(nombre, direccion, edad, telefono, curp, nss);
+        
+        System.out.println("\nDerecho Habiente " + nombre + " registrado con éxito.");
+        
+        return nuevo_derecho_habiente;
+    }
+
+    public Cita agendar_cita(Paciente paciente, Scanner scanner) {
         // 1. Mostrar Doctores y Seleccionar uno
         visualizar_todos_doctores();
         
@@ -161,5 +236,7 @@ public class Hospital {
         return nuevaCita;
     }
 
-
+    public Paciente seleccion_derecho_habiente(int i){
+        return lista_derecho_habientes.get(i);
+    }
 }

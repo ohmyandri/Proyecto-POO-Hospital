@@ -14,7 +14,7 @@ public class Doctor extends Persona{
      */
 
     //Constructor del doctor
-    public Doctor(String nombre_persona, String direccion, int edad, int numero_telefono, String especialidad_medicina, int experiencia_medicina) {
+    public Doctor(String nombre_persona, String direccion, int edad, String numero_telefono, String especialidad_medicina, int experiencia_medicina) {
         super(nombre_persona, direccion, edad, numero_telefono);
         this.especialidad_medicina = especialidad_medicina;
         this.experiencia_medicina = experiencia_medicina;
