@@ -134,8 +134,10 @@ public class Hospital {
         // 3. Crear el objeto Paciente con todos los datos
         Paciente nuevo_derecho_habiente = new Paciente(nombre, direccion, edad, telefono, curp, nss);
         
-        System.out.println("\nDerecho Habiente " + nombre + " registrado con éxito.");
+        //QUIERO AGREGAR FUNCIONALIDAD DE PODER CREAR UNA CONTRASEÑA PARA EL DERECHO HABIENTE Y ASI PODER INGRESAR A SU CUENTA
         
+        
+        System.out.println("\nDerecho Habiente " + nombre + " registrado con éxito.");
         return nuevo_derecho_habiente;
     }
 
