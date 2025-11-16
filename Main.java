@@ -40,15 +40,15 @@ public class Main {
                     //switch Case:
                     switch (eleccion_exterior) {
                         case 1:
+                            //Los metodos cuentan con su try-catch
+                            //Agregando derecho habiente al hospital
                             Paciente nueva_persona = hospital.agregar_derecho_habiente(sc);
-                            try {
-                                hospital.agregar_derecho_habiente(nueva_persona);
-                            } catch (Exception e) {
-                                System.out.println("Hubo un error al agregar al derecho habiente");
-                            }
+                            //Agregando derecho habiente a la lista de derecho habientes del hospital
+                            hospital.agregar_derecho_habiente(nueva_persona);
                             break;
 
                         case 2:
+                        //Try catch para seleccionar derecho habiente, esto evitando errores, y manejandolos correctamente
                             try {
                                 hospital.visualizar_derecho_habientes();
                                 System.out.print("Selecciona tu derecho habiente: ");
@@ -76,10 +76,14 @@ public class Main {
                                         sc.nextLine(); //Limpiando Buffer
                                         continue;
                                     }
-
+                                    
+                                    //Switch case para las opciones del paciente
                                     switch (eleccion) {
+                                        //Crear y agendar una nueva cita
                                         case 1:
+                                            //Agendando cita
                                             Cita nueva_cita = hospital.agendar_cita(derecho_habiente_temporal, sc);
+                                            //Obteniendo indice del doctor seleccionado
                                             int i = nueva_cita.getDoctor_seleccionado();
                                             //Agregando la cita a la agenda del doctor:
                                             hospital.doctor_especifico(i).agregar_cita(nueva_cita);
@@ -110,7 +114,9 @@ public class Main {
                                     }
                                 }
 
-                            } catch (Exception e) {
+                            } 
+                            //Catch para manejar la excepcion
+                            catch (Exception e) {
                                 System.out.println("Hubo un error al seleccionar y/o visualizar derecho habiente");
                             }
                             
