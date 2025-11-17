@@ -239,10 +239,10 @@ public class Hospital {
         for(int i = 0; i < lista_derecho_habientes.size(); i++){
             System.out.println("\nDerecho habiente [" + (i+1) + "]");
             System.out.println("Nombre : " + lista_derecho_habientes.get(i).getNombre_persona());
-            System.out.println("Direccion : " + lista_derecho_habientes.get(i).getDireccion());
+            //System.out.println("Direccion : " + lista_derecho_habientes.get(i).getDireccion());
             System.out.println("Edad : " + lista_derecho_habientes.get(i).getEdad());
             System.out.println("Numero de telefono : " + lista_derecho_habientes.get(i).getNumero_telefono());
-            System.out.println("CURP : " + lista_derecho_habientes.get(i).getCURP());
+            //System.out.println("CURP : " + lista_derecho_habientes.get(i).getCURP());
             //Pienso dejar esto como comentario para usarlo al debuggear la funcionalidad de inicio sesion con NSS como username
             //System.out.println("NSS : " + lista_derecho_habientes.get(i).getNumero_seguro_social());
             System.out.println("N. Citas agendadas : " + lista_derecho_habientes.get(i).getCitas_agendadas().size());
