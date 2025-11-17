@@ -4,6 +4,7 @@ import java.util.List;
 public class Paciente extends Persona{
     //Agregando atributos mas específicos:
     private String CURP;
+    private String password_seguro_social;
     private String numero_seguro_social;
     private List <Cita> citas_agendadas;
 
@@ -24,6 +25,14 @@ public class Paciente extends Persona{
         return numero_seguro_social;
     }
 
+    public String getPassword_seguro_social(){
+        return password_seguro_social;
+    }
+
+    public List getCitas_agendadas(){
+        return citas_agendadas;
+    }
+
     public void setCURP(String CURP) {
         this.CURP = CURP;
     }
@@ -32,12 +41,12 @@ public class Paciente extends Persona{
         this.numero_seguro_social = numero_seguro_social;
     }
 
-    public List getCitas_agendadas(){
-        return citas_agendadas;
-    }
-
     //Agregando una cita:
     public void agregar_cita(Cita cita_agendada){
         citas_agendadas.add(cita_agendada);
+    }
+
+    public void setPassword_seguro_social(String password_seguro_social){
+        this.password_seguro_social = password_seguro_social;
     }
 }
