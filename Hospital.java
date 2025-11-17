@@ -264,6 +264,10 @@ public class Hospital {
         user_NSS = sc.nextLine();
         System.out.print("Ingresa tu contraseña: ");
         password_NSS = sc.nextLine();
+<<<<<<< HEAD
+=======
+        //VerificadorDeUsuarios(user_NSS, password_NSS);
+>>>>>>> 82415b401ca0e72f7d9d750bf10304b6eefa3503
         //Paso i--, ya que se trabaja index 0 based al mostrarlos a todos, por tanto hay que restar
         return lista_derecho_habientes.get(i-1);
     }
