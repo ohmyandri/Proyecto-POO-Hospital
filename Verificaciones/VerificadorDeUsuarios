@@ -8,6 +8,13 @@ public class VerificadorDeUsuarios {
 
         return usuario.equals(adminUsuario) && contrasena.equals(adminContrasena);
     }
+
+    public static boolean esUsuario(String usuario, String contrasena) {
+        String adminUsuario = "admin";
+        String adminContrasena = "0000";
+
+        return usuario.equals(adminUsuario) && contrasena.equals(adminContrasena);
+    }
     
     // -----------------------------------------------------------------------
     

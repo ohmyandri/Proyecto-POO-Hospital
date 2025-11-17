@@ -102,6 +102,8 @@ public class Hospital {
         
         System.out.print("Ingrese el Número de Seguro Social (NSS): ");
         String nss = sc.nextLine();
+
+        //Falta agregar que el usuario pueda tener su contraseña
         
         // 2. Datos numéricos (usando nextInt() con manejo de errores)
         int edad = -1;
@@ -253,7 +255,16 @@ public class Hospital {
         }
     }
 
-    public Paciente seleccion_derecho_habiente(int i){
+    //Seleccionar un derecho-habientes
+    public Paciente seleccion_derecho_habiente(int i, Scanner sc){
+        //Primero pedimos las credenciales de dicha persona:
+        String user_NSS, password_NSS;
+        //Pidiendo usuario
+        System.out.print("Ingresa tu NSS: ");
+        user_NSS = sc.nextLine();
+        System.out.print("Ingresa tu contraseña: ");
+        password_NSS = sc.nextLine();
+        //VerificadorDeUsuarios(user_NSS, password_NSS);
         //Paso i--, ya que se trabaja index 0 based al mostrarlos a todos, por tanto hay que restar
         return lista_derecho_habientes.get(i-1);
     }

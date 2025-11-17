@@ -54,7 +54,7 @@ public class Main {
                                 System.out.print("Selecciona tu derecho habiente: ");
                                 int seleccion_derecho_habiente = sc.nextInt();
                                 sc.nextLine();
-                                Paciente derecho_habiente_temporal = hospital.seleccion_derecho_habiente(seleccion_derecho_habiente);
+                                Paciente derecho_habiente_temporal = hospital.seleccion_derecho_habiente(seleccion_derecho_habiente, sc);
                                 
                                 //Menu Interno => PACIENTE
                                 int eleccion = 0;
