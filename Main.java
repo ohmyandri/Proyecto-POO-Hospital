@@ -47,80 +47,85 @@ public class Main {
                             hospital.agregar_derecho_habiente(nueva_persona);
                             break;
 
+                        
                         case 2:
                         //Try catch para seleccionar derecho habiente, esto evitando errores, y manejandolos correctamente
-                            try {
-                                hospital.visualizar_derecho_habientes();
+                        Paciente derecho_habiente_temporal = null;
+                        try {
+                            hospital.visualizar_derecho_habientes();
+                            if(hospital.getLista_derecho_habientes().size() > 0) {
                                 System.out.print("Selecciona tu derecho habiente: ");
                                 int seleccion_derecho_habiente = sc.nextInt();
                                 sc.nextLine();
-                                Paciente derecho_habiente_temporal = hospital.seleccion_derecho_habiente(seleccion_derecho_habiente, sc);
-                                
-                                //Menu Interno => PACIENTE
-                                int eleccion = 0;
-                                while (eleccion != 5) {
-                                    System.out.println("\nMENÚ PRINCIPAL");
-                                    System.out.println("1. Crear y agendar una nueva cita");
-                                    System.out.println("2. Visualizar mis citas agendadas");
-                                    System.out.println("3. Modificar una cita agendada");
-                                    System.out.println("4. Cancelar una cita agendada");
-                                    System.out.println("5. Salir del sistema");
-                                    System.out.print("Ingrese su opción: ");
-                                    
-                                    //Leyendo entrada del usuario
-                                    if (sc.hasNextInt()) {
-                                        eleccion = sc.nextInt();
-                                        sc.nextLine(); //Limpiando Buffer
-                                    } else {
-                                        System.out.println("Error: Ingrese un número válido.");
-                                        sc.nextLine(); //Limpiando Buffer
-                                        continue;
-                                    }
-                                    
-                                    //Switch case para las opciones del paciente
-                                    switch (eleccion) {
-                                        //Crear y agendar una nueva cita
-                                        case 1:
-                                            //Agendando cita
-                                            Cita nueva_cita = hospital.agendar_cita(derecho_habiente_temporal, sc);
-                                            //Obteniendo indice del doctor seleccionado
-                                            int i = nueva_cita.getDoctor_seleccionado();
-                                            //Agregando la cita a la agenda del doctor:
-                                            hospital.doctor_especifico(i).agregar_cita(nueva_cita);
-                                            //Agregando la cita a la agenda del paciente:
-                                            derecho_habiente_temporal.agregar_cita(nueva_cita);
-                                            //Agregando la cita a la agenda del hospital:
-                                            hospital.agregar_paciente(derecho_habiente_temporal);
-                                            break;
-                                        
-                                        //Visualizar citas agendadas de un paciente
-                                        case 2:
-                                            hospital.visualizar_cita_agendada_paciente(derecho_habiente_temporal);
-                                            break;
-                                        
-                                        //Modificar una cita agendada:
-                                        case 3:
-                                            break;
-                                        
-                                        //Cancelar una cita
-                                        case 4:
-                                            break;
-
-                                        case 5:
-                                            eleccion = 5;
-
-                                        default:
-                                            break;
-                                    }
-                                }
-
-                            } 
-                            //Catch para manejar la excepcion
-                            catch (Exception e) {
-                                System.out.println("Hubo un error al seleccionar y/o visualizar derecho habiente");
+                                derecho_habiente_temporal = hospital.seleccion_derecho_habiente(seleccion_derecho_habiente, sc);
                             }
+
+                            //Menu Interno => PACIENTE
+                            int eleccion = 0;
+                            while (eleccion != 5 && derecho_habiente_temporal != null) {
+                                System.out.println("\nMENÚ PRINCIPAL");
+                                System.out.println("1. Crear y agendar una nueva cita");
+                                System.out.println("2. Visualizar mis citas agendadas");
+                                System.out.println("3. Modificar una cita agendada");
+                                System.out.println("4. Cancelar una cita agendada");
+                                System.out.println("5. Salir del sistema");
+                                System.out.print("Ingrese su opción: ");
+                                
+                                //Leyendo entrada del usuario
+                                if (sc.hasNextInt()) {
+                                    eleccion = sc.nextInt();
+                                    sc.nextLine(); //Limpiando Buffer
+                                } else {
+                                    System.out.println("Error: Ingrese un número válido.");
+                                    sc.nextLine(); //Limpiando Buffer
+                                    continue;
+                                }
+                                
+                                //Switch case para las opciones del paciente
+                                switch (eleccion) {
+                                    //Crear y agendar una nueva cita
+                                    case 1:
+                                        //Agendando cita
+                                        Cita nueva_cita = hospital.agendar_cita(derecho_habiente_temporal, sc);
+                                        //Obteniendo indice del doctor seleccionado
+                                        int i = nueva_cita.getDoctor_seleccionado();
+                                        //Agregando la cita a la agenda del doctor:
+                                        hospital.doctor_especifico(i).agregar_cita(nueva_cita);
+                                        //Agregando la cita a la agenda del paciente:
+                                        derecho_habiente_temporal.agregar_cita(nueva_cita);
+                                        //Agregando la cita a la agenda del hospital:
+                                        hospital.agregar_cita(nueva_cita);
+                                        break;
+                                    
+                                    //Visualizar citas agendadas de un paciente
+                                    case 2:
+                                        hospital.visualizar_cita_agendada_paciente(derecho_habiente_temporal);
+                                        break;
+                                    
+                                    //Modificar una cita agendada:
+                                    case 3:
+                                        break;
+                                    
+                                    //Cancelar una cita
+                                    case 4:
+                                        break;
+
+                                    case 5:
+                                        eleccion = 5;
+                                        derecho_habiente_temporal = null;
+
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+
+                        //Catch para manejar la excepcion
+                        catch (Exception e) {
+                            System.out.println("Hubo un error al seleccionar y/o visualizar derecho habiente");
+                        }
                             
-                            break;
+                        break;
 
                         case 3:
                             break;
@@ -135,9 +140,6 @@ public class Main {
                             break;
                     }
             }
-
-
-            //Implementar posibilidad de administrador del hospital para verlo, TODO
         }
     
     }

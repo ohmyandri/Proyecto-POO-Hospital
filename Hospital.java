@@ -11,6 +11,7 @@ public class Hospital {
     private List <Doctor> lista_doctores;
     private List <Paciente> lista_pacientes;
     private List <Paciente> lista_derecho_habientes;
+    private List <Cita> lista_citas_hospital;
     
     //Constructor:
     public Hospital(String nombre_hospital, String direccion_hospital){
@@ -19,6 +20,7 @@ public class Hospital {
         this.lista_doctores = new ArrayList<>();
         this.lista_pacientes = new ArrayList<>();
         this.lista_derecho_habientes = new ArrayList<>();
+        this.lista_citas_hospital = new ArrayList<>();
     }
 
     //getters y setters para los atributos
@@ -28,6 +30,14 @@ public class Hospital {
 
     public String getDireccion_hospital(){
         return direccion_hospital;
+    }
+
+    public List <Paciente> getLista_Pacientes(){
+        return lista_pacientes;
+    }
+
+    public List <Paciente> getLista_derecho_habientes(){
+        return lista_derecho_habientes;
     }
 
     public void setNombre_hospital(String nombre_hospital){
@@ -51,6 +61,9 @@ public class Hospital {
         lista_derecho_habientes.add(nuevo_derecho_habiente);
     }
 
+    public void agregar_cita(Cita nueva_cita){
+        lista_citas_hospital.add(nueva_cita);
+    }
     //Metodos para visualizar personas:
     public void visualizar_todos_doctores(){
         System.out.println("\nLista de doctores:");
@@ -103,6 +116,9 @@ public class Hospital {
         System.out.print("Ingrese el Número de Seguro Social (NSS): ");
         String nss = sc.nextLine();
 
+        System.out.print("Ingrese la contraseña, para acceder a su sistema de Seguro Social: ");
+        String password = sc.nextLine();
+
         //Falta agregar que el usuario pueda tener su contraseña
         
         // 2. Datos numéricos (usando nextInt() con manejo de errores)
@@ -133,7 +149,7 @@ public class Hospital {
         }
         
         // 3. Crear el objeto Paciente con todos los datos
-        Paciente nuevo_derecho_habiente = new Paciente(nombre, direccion, edad, telefono, curp, nss);
+        Paciente nuevo_derecho_habiente = new Paciente(nombre, direccion, edad, telefono, curp, nss, password);
         
         //QUIERO AGREGAR FUNCIONALIDAD DE PODER CREAR UNA CONTRASEÑA PARA EL DERECHO HABIENTE Y ASI PODER INGRESAR A SU CUENTA
         
@@ -257,18 +273,28 @@ public class Hospital {
 
     //Seleccionar un derecho-habientes
     public Paciente seleccion_derecho_habiente(int i, Scanner sc){
+        List<Paciente> lista_derecho_habientes = this.getLista_derecho_habientes();
         //Primero pedimos las credenciales de dicha persona:
-        String user_NSS, password_NSS;
-        //Pidiendo usuario
-        System.out.print("Ingresa tu NSS: ");
-        user_NSS = sc.nextLine();
-        System.out.print("Ingresa tu contraseña: ");
-        password_NSS = sc.nextLine();
-<<<<<<< HEAD
-=======
-        //VerificadorDeUsuarios(user_NSS, password_NSS);
->>>>>>> 82415b401ca0e72f7d9d750bf10304b6eefa3503
-        //Paso i--, ya que se trabaja index 0 based al mostrarlos a todos, por tanto hay que restar
-        return lista_derecho_habientes.get(i-1);
+        try {
+            Paciente paciente_seleccionado = lista_derecho_habientes.get(i-1);
+            String user_NSS, password_NSS;
+            //Pidiendo usuario
+            System.out.print("Ingresa tu NSS: ");
+            user_NSS = sc.nextLine();
+            System.out.print("Ingresa tu contraseña: ");
+            password_NSS = sc.nextLine();
+
+            if(paciente_seleccionado.getNumero_seguro_social().equals(user_NSS) && paciente_seleccionado.getPassword_seguro_social().equals(password_NSS)){
+                return lista_derecho_habientes.get(i-1);
+            }
+            else{
+                System.out.println("Numero de Seguro social o contraseña equivocados");
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Ha habido un error al capturar la contraseña...");
+            e.printStackTrace();
+            return null;
+        }
     }
 }
