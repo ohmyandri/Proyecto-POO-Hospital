@@ -102,6 +102,8 @@ public class Hospital {
         
         System.out.print("Ingrese el Número de Seguro Social (NSS): ");
         String nss = sc.nextLine();
+
+        //Falta agregar que el usuario pueda tener su contraseña
         
         // 2. Datos numéricos (usando nextInt() con manejo de errores)
         int edad = -1;
@@ -124,7 +126,6 @@ public class Hospital {
             System.out.print("Ingrese el número de teléfono: ");
             try {
                 telefono = sc.nextLine();
-                sc.nextLine(); // Limpiar buffer
             } catch (InputMismatchException e) {
                 System.out.println("Error: Ingrese un número correcto de el teléfono.");
                 sc.nextLine(); // Limpiar buffer
@@ -235,21 +236,34 @@ public class Hospital {
 
     //Derecho habientes metodos:
     public void visualizar_derecho_habientes(){
-        System.out.println("Lista de derecho habientes en el hospital:");
-        for(int i = 0; i < lista_derecho_habientes.size(); i++){
-            System.out.println("\nDerecho habiente [" + (i+1) + "]");
-            System.out.println("Nombre : " + lista_derecho_habientes.get(i).getNombre_persona());
-            System.out.println("Direccion : " + lista_derecho_habientes.get(i).getDireccion());
-            System.out.println("Edad : " + lista_derecho_habientes.get(i).getEdad());
-            System.out.println("Numero de telefono : " + lista_derecho_habientes.get(i).getNumero_telefono());
-            System.out.println("CURP : " + lista_derecho_habientes.get(i).getCURP());
-            //Pienso dejar esto como comentario para usarlo al debuggear la funcionalidad de inicio sesion con NSS como username
-            //System.out.println("NSS : " + lista_derecho_habientes.get(i).getNumero_seguro_social());
-            System.out.println("N. Citas agendadas : " + lista_derecho_habientes.get(i).getCitas_agendadas().size());
+        if (lista_derecho_habientes.size() > 0) {
+            System.out.println("Lista de derecho habientes en el hospital:");
+            for(int i = 0; i < lista_derecho_habientes.size(); i++){
+                System.out.println("\nDerecho habiente [" + (i+1) + "]");
+                System.out.println("Nombre : " + lista_derecho_habientes.get(i).getNombre_persona());
+                //System.out.println("Direccion : " + lista_derecho_habientes.get(i).getDireccion());
+                System.out.println("Edad : " + lista_derecho_habientes.get(i).getEdad());
+                System.out.println("Numero de telefono : " + lista_derecho_habientes.get(i).getNumero_telefono());
+                //System.out.println("CURP : " + lista_derecho_habientes.get(i).getCURP());
+                //Pienso dejar esto como comentario para usarlo al debuggear la funcionalidad de inicio sesion con NSS como username
+                //System.out.println("NSS : " + lista_derecho_habientes.get(i).getNumero_seguro_social());
+                System.out.println("N. Citas agendadas : " + lista_derecho_habientes.get(i).getCitas_agendadas().size());
+            }
+        }
+        else{
+            System.out.println("No existe ningun derecho habiente registrado en el hospital, por favor ingrese alguno");
         }
     }
 
-    public Paciente seleccion_derecho_habiente(int i){
+    //Seleccionar un derecho-habientes
+    public Paciente seleccion_derecho_habiente(int i, Scanner sc){
+        //Primero pedimos las credenciales de dicha persona:
+        String user_NSS, password_NSS;
+        //Pidiendo usuario
+        System.out.print("Ingresa tu NSS: ");
+        user_NSS = sc.nextLine();
+        System.out.print("Ingresa tu contraseña: ");
+        password_NSS = sc.nextLine();
         //Paso i--, ya que se trabaja index 0 based al mostrarlos a todos, por tanto hay que restar
         return lista_derecho_habientes.get(i-1);
     }
