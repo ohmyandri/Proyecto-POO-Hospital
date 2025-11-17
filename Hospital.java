@@ -88,7 +88,7 @@ public class Hospital {
     //Metodos para la creacion de objetos
     public Paciente agregar_derecho_habiente(Scanner sc){
         
-        System.out.println("\nREGISTRAR NUEVA PERSONA!");
+        System.out.println("\nRegistrando una nueva persona:");
         
         // 1. Datos String (usando nextLine())
         System.out.print("Ingrese el nombre completo del paciente: ");
@@ -243,7 +243,8 @@ public class Hospital {
             System.out.println("Edad : " + lista_derecho_habientes.get(i).getEdad());
             System.out.println("Numero de telefono : " + lista_derecho_habientes.get(i).getNumero_telefono());
             System.out.println("CURP : " + lista_derecho_habientes.get(i).getCURP());
-            System.out.println("NSS : " + lista_derecho_habientes.get(i).getNumero_seguro_social());
+            //Pienso dejar esto como comentario para usarlo al debuggear la funcionalidad de inicio sesion con NSS como username
+            //System.out.println("NSS : " + lista_derecho_habientes.get(i).getNumero_seguro_social());
             System.out.println("N. Citas agendadas : " + lista_derecho_habientes.get(i).getCitas_agendadas().size());
         }
     }
