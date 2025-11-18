@@ -250,6 +250,14 @@ public class Hospital {
         }
     }
 
+    //Visualizar todas las citas del hospital:
+    public void visualizar_citas_hospital(Hospital hospital){
+        //Obtenemos la lista de citas
+        for(int j = 0; j < lista_citas_hospital.size(); j++){
+            lista_citas_hospital.get(j).visualizar_cita(lista_doctores);
+        }
+    }
+
     //Derecho habientes metodos:
     public void visualizar_derecho_habientes(){
         if (lista_derecho_habientes.size() > 0) {
