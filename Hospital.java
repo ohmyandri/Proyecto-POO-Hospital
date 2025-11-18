@@ -83,18 +83,23 @@ public class Hospital {
 
     //Visualizar todos los pacientes en el hospital:
     public void visualizar_todos_pacientes(){
-        System.out.println("Lista de pacientes en el hospital:");
-        for(int i = 0; i < lista_pacientes.size(); i++){
-            //Paciente:
-            System.out.println("Paciente: " + lista_pacientes.get(i).getNombre_persona());
-            //Cita agendada por el paciente:
-            List <Cita> cita_agendada_paciente = lista_pacientes.get(i).getCitas_agendadas();
-            //Iterando por las citas del paciente
-            for(int j = 0; j < cita_agendada_paciente.size(); j++){
-                //Falta buscar que doctor le atiende:
-                //int ind_doctor = cita_agendada_paciente.get;
-                cita_agendada_paciente.get(j).visualizar_cita(lista_doctores);
+        if(lista_pacientes.size() > 0){
+            System.out.println("Lista de pacientes en el hospital:");
+            for(int i = 0; i < lista_pacientes.size(); i++){
+                //Paciente:
+                System.out.println("Paciente: " + lista_pacientes.get(i).getNombre_persona());
+                //Cita agendada por el paciente:
+                List <Cita> cita_agendada_paciente = lista_pacientes.get(i).getCitas_agendadas();
+                //Iterando por las citas del paciente
+                for(int j = 0; j < cita_agendada_paciente.size(); j++){
+                    //Falta buscar que doctor le atiende:
+                    //int ind_doctor = cita_agendada_paciente.get;
+                    cita_agendada_paciente.get(j).visualizar_cita(lista_doctores);
+                }
             }
+        }
+        else{
+            System.out.println("No hay ningun paciente registrado");
         }
     }
 
@@ -252,9 +257,13 @@ public class Hospital {
 
     //Visualizar todas las citas del hospital:
     public void visualizar_citas_hospital(Hospital hospital){
-        //Obtenemos la lista de citas
-        for(int j = 0; j < lista_citas_hospital.size(); j++){
-            lista_citas_hospital.get(j).visualizar_cita(lista_doctores);
+        if (lista_citas_hospital.size() > 0) {
+            for(int j = 0; j < lista_citas_hospital.size(); j++){
+                lista_citas_hospital.get(j).visualizar_cita(lista_doctores);
+            }
+        }
+        else{
+            System.out.println("\nNO EXISTEN CITAS AGENDADAS!");
         }
     }
 
@@ -275,7 +284,7 @@ public class Hospital {
             }
         }
         else{
-            System.out.println("No existe ningun derecho habiente registrado en el hospital, por favor ingrese alguno");
+            System.out.println("\nNO EXISTE NINGUN DERECHO-HABIENTE REGISTRADO EN EL HOSPITAL");
         }
     }
 
