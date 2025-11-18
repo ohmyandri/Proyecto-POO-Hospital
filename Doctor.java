@@ -7,13 +7,7 @@ public class Doctor extends Persona{
     private int experiencia_medicina;
     private List <Paciente> lista_pacientes;
     private List <Cita> lista_citas;
-    
-    /* editar:
-    Tengo pensado agregar una lista, un array, de sus citas agendadas para verificar su disponibilidad
-        private List<Cita> citasAgendadas;
-     */
 
-    //Constructor del doctor
     public Doctor(String nombre_persona, String direccion, int edad, String numero_telefono, String especialidad_medicina, int experiencia_medicina) {
         super(nombre_persona, direccion, edad, numero_telefono);
         this.especialidad_medicina = especialidad_medicina;
@@ -21,6 +15,9 @@ public class Doctor extends Persona{
         this.lista_pacientes = new ArrayList<>();
         this.lista_citas = new ArrayList<>();
     }
+    
+    //Verificando si el doctor esta disponible en x horario
+    
 
     //Getters y Setters:
     public String getEspecialidad_medicina() {
@@ -30,12 +27,6 @@ public class Doctor extends Persona{
     public int getExperiencia_medicina() {
         return experiencia_medicina;
     }
-
-    /*
-    public List<Cita> getCitasAgendadas() {
-        return citasAgendadas;
-    }*/
-
 
     public void setEspecialidad_medicina(String especialidad_medicina) {
         this.especialidad_medicina = especialidad_medicina;
