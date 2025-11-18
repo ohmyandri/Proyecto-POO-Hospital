@@ -50,4 +50,13 @@ public class Paciente extends Persona{
     public void setPassword_seguro_social(String password_seguro_social){
         this.password_seguro_social = password_seguro_social;
     }
+
+    @Override
+    public void imprimir_detalles() {
+        super.imprimir_detalles(); 
+        // Agregando los detalles específicos del Paciente
+        System.out.println("CURP: " + getCURP());
+        System.out.println("Número de Seguro Social (NSS): " + getNumero_seguro_social());
+        System.out.println("Citas Agendadas: " + getCitas_agendadas().size());
+    }
 }
