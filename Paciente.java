@@ -30,7 +30,7 @@ public class Paciente extends Persona{
         return password_seguro_social;
     }
 
-    public List getCitas_agendadas(){
+    public List <Cita> getCitas_agendadas(){
         return citas_agendadas;
     }
 

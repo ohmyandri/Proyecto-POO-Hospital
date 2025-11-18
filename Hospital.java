@@ -152,7 +152,7 @@ public class Hospital {
             System.out.println("Lista de pacientes en el hospital:");
             for(int i = 0; i < lista_pacientes.size(); i++){
                 //Mostrando el nombre del pacienteaciente:
-                System.out.println("\nPaciente: " + lista_pacientes.get(i).getNombre_persona());
+                System.out.print("\nPaciente: " + lista_pacientes.get(i).getNombre_persona());
                 //Cita agendada por el paciente:
                 List <Cita> cita_agendada_paciente = lista_pacientes.get(i).getCitas_agendadas();
                 //Iterando por las citas del paciente
@@ -170,7 +170,7 @@ public class Hospital {
     //Visualizar citas agendadas
     public void visualizar_cita_agendada_paciente(Paciente paciente_activo){
         if (paciente_activo.getCitas_agendadas().size() > 0){
-            System.out.println("Paciente: " + paciente_activo.getNombre_persona());
+            System.out.println("\nPaciente: " + paciente_activo.getNombre_persona());
             List <Cita> cita_agendada_paciente = paciente_activo.getCitas_agendadas();
             for(int j = 0; j < cita_agendada_paciente.size(); j++){
                 System.out.print("Cita [" + (j+1) + "]");

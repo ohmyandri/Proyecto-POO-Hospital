@@ -114,48 +114,73 @@ public class Main {
                                     
                                     //Modificar una cita agendada:
                                     case 3:
-                                    //Guardamos la nueva cita:
-                                    //Agendando cita
-                                        //Obteniendo cual es la cita que desea modificar
-                                        if (derecho_habiente_temporal.getCitas_agendadas().size() > 0) {
-                                            hospital.visualizar_cita_agendada_paciente(derecho_habiente_temporal);
-                                            //Pidiendo cual sera la q modificara:
-                                            System.out.print("Ingresa la opcion de cita que deseas modificar");
-                                            int index_cita_modificar = sc.nextInt() - 1;
-                                            sc.nextLine();
-                                            Cita cita_eliminar = hospital.getLista_citas_hospital().get(index_cita_modificar);
-                                            //Borramos la que queremos modificar, de las listas:
-                                            hospital.seleccionar_doctor_especifico(cita_eliminar.getDoctor_seleccionado()).eliminar_cita(cita_eliminar);
-                                            hospital.eliminar_cita(cita_eliminar);
-                                            derecho_habiente_temporal.eliminar_cita(cita_eliminar);
+                                    //Verificar si el paciente tiene citas
+                                    if (derecho_habiente_temporal.getCitas_agendadas().size() > 0) {
+                                        
+                                        hospital.visualizar_cita_agendada_paciente(derecho_habiente_temporal);
+                                        System.out.print("Ingresa la opcion de cita que deseas modificar: ");
+                                        
+                                        int index_seleccionado = sc.nextInt();
+                                        int index_cita_modificar = index_seleccionado - 1;
+                                        sc.nextLine();
 
-                                            //Guardamos una nueva cita
-                                            Cita cita_modificada = hospital.agendar_cita(derecho_habiente_temporal, sc);
-                                            //Obteniendo indice del doctor seleccionado
-                                            int n = cita_modificada.getDoctor_seleccionado();
-
-                                            //Verificando si el doctor seleccionado esta disponible
-                                            Doctor doctor_modificado = hospital.seleccionar_doctor_especifico(n);
-                                            if(doctor_modificado.estaDisponible(cita_modificada.getFecha(), cita_modificada.getHora()) == true){
-                                                //Agregamos la cita modificada a la agenda del doctor
-                                                hospital.seleccionar_doctor_especifico(n).agregar_cita(cita_modificada);
-                                                //Agregando la cita a la agenda del hospital:
-                                                hospital.agregar_cita(cita_modificada);
-                                                //Agregando la cita a la agenda del paciente
-                                                derecho_habiente_temporal.agregar_cita(cita_modificada);
-                                            }
-                                            else{
-                                                System.out.println("\nEl doctor no se encuentra disponible en esa fecha y hora, por favor seleccione otro horario");
-                                            }
-                                        } 
-                                        else{
-                                            System.out.println("El derecho habiente no tiene citas agendadas por modificar, recomendamos ingresar una cita");
+                                        //Asegurar que el índice existe
+                                        if (index_cita_modificar < 0 || index_cita_modificar >= derecho_habiente_temporal.getCitas_agendadas().size()) {
+                                            System.out.println("Opción de cita inválida. Por favor, selecciona un número de la lista.");
+                                            break;
                                         }
+
+                                        //Obtener la cita antigua de la lista del PACIENTE
+                                        Cita cita_antigua = derecho_habiente_temporal.getCitas_agendadas().get(index_cita_modificar);
+                                        Doctor doctor_antiguo = hospital.seleccionar_doctor_especifico(cita_antigua.getDoctor_seleccionado());
+
+                                        //Borramos anterior cita de todas las listas
+                                        doctor_antiguo.eliminar_cita(cita_antigua);
+                                        hospital.eliminar_cita(cita_antigua);
+                                        derecho_habiente_temporal.eliminar_cita(cita_antigua);
+
+                                        //Guardando nueva cita
+                                        Cita cita_modificada = hospital.agendar_cita(derecho_habiente_temporal, sc);
+                                        
+                                        //Obtener el índice del doctor para la nueva cita
+                                        int n = cita_modificada.getDoctor_seleccionado(); 
+                                        Doctor doctor_modificado = hospital.seleccionar_doctor_especifico(n);
+
+                                        //Verificar si el nuevo doctor/horario está disponible
+                                        if (doctor_modificado.estaDisponible(cita_modificada.getFecha(), cita_modificada.getHora())) {
+                                            
+                                            // Agregamos la nueva cita a TODAS las agendas
+                                            doctor_modificado.agregar_cita(cita_modificada);
+                                            hospital.agregar_cita(cita_modificada);
+                                            derecho_habiente_temporal.agregar_cita(cita_modificada);
+                                            
+                                            System.out.println("\nCita modificada con éxito.");
+                                            
+                                        } else {
+                                            System.out.println("\nEl doctor no se encuentra disponible en esa fecha y hora. La cita original fue ELIMINADA y la modificación NO fue guardada.");
+                                        }
+                                    } 
+                                    else {
+                                        System.out.println("El derecho habiente no tiene citas agendadas por modificar, recomendamos ingresar una cita");
+                                    }
                                     
-                                        break;
+                                    break;
                                     
                                     //Cancelar una cita
                                     case 4:
+                                        //Hacemos display de las citas que se tienen:
+                                        hospital.visualizar_cita_agendada_paciente(derecho_habiente_temporal);
+                                        //Pidiendo cual sera la q cancelara:
+                                        System.out.print("Ingresa la opcion de cita que deseas cancelar");
+                                        int index_cita_modificar = sc.nextInt() - 1;
+                                        sc.nextLine();
+
+                                        Cita cita_eliminar = derecho_habiente_temporal.getCitas_agendadas().get(index_cita_modificar);
+
+                                        //Cancelando las citas en todas las listas:
+                                        hospital.seleccionar_doctor_especifico(cita_eliminar.getDoctor_seleccionado()).eliminar_cita(cita_eliminar);
+                                        hospital.eliminar_cita(cita_eliminar);
+                                        derecho_habiente_temporal.eliminar_cita(cita_eliminar);
                                         break;
 
                                     case 5:
