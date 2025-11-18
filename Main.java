@@ -183,6 +183,7 @@ public class Main {
                                                 break;
 
                                             default:
+                                            System.out.println("Intentaste acceder a algo incorrecto, prueba de nuevo");
                                                 break;
                                         }
                                     }
