@@ -99,7 +99,7 @@ public class Hospital {
             }
         }
         else{
-            System.out.println("No hay ningun paciente registrado");
+            System.out.println("\nNO HAY NINGUN PACIENTE REGISTRADO");
         }
     }
 
@@ -263,7 +263,7 @@ public class Hospital {
             }
         }
         else{
-            System.out.println("\nNO EXISTEN CITAS AGENDADAS!");
+            System.out.println("\nNO EXISTEN CITAS AGENDADAS");
         }
     }
 
