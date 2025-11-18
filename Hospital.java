@@ -32,12 +32,20 @@ public class Hospital {
         return direccion_hospital;
     }
 
+    public List <Doctor> getLista_Doctores(){
+        return lista_doctores;
+    }
+
     public List <Paciente> getLista_Pacientes(){
         return lista_pacientes;
     }
 
     public List <Paciente> getLista_derecho_habientes(){
         return lista_derecho_habientes;
+    }
+    
+    public List <Cita> getLista_citas_hospital(){
+        return lista_citas_hospital;
     }
 
     public void setNombre_hospital(String nombre_hospital){
@@ -48,23 +56,47 @@ public class Hospital {
         this.direccion_hospital = direccion_hospital;
     }
 
+    public void setLista_Doctores(List lista_doctores){
+        this.lista_doctores = lista_doctores;
+    }
+
+    public void setLista_pacientes(List lista_pacientes){
+        this.lista_pacientes = lista_pacientes;
+    }
+
+    public void setlista_derecho_habientes(List lista_derecho_habientes){
+        this.lista_derecho_habientes = lista_derecho_habientes;
+    }
+
+    public void setLista_citas_hospital(List lista_citas_hospital){
+        this.lista_citas_hospital = lista_citas_hospital;
+    }
+
+
     //Metodos para agregar personas a las listas:
+
+    //metodo para agregar un doctor a la lista de doctores DEL HOSPITAL
     public void agregar_doctor(Doctor nuevo_doctor){
         lista_doctores.add(nuevo_doctor);
     }
 
+    //Agregar un paciente, a la lista de Pacientes DEL HOSPITAL
     public void agregar_paciente(Paciente nuevo_paciente){
         lista_pacientes.add(nuevo_paciente);
     }
 
+    //Agregar un paciente, Declarado como instancia paciente, a la lista de derecho habientes DEL HOSPITAL
     public void agregar_derecho_habiente(Paciente nuevo_derecho_habiente){
         lista_derecho_habientes.add(nuevo_derecho_habiente);
     }
 
+    //Agregar una cita a la lista de citas del HOSPITAL
     public void agregar_cita(Cita nueva_cita){
         lista_citas_hospital.add(nueva_cita);
     }
+
     //Metodos para visualizar personas:
+    //Metodo visualizar doctores, ya empleando metodo sobreescrito imprimir detalles
     public void visualizar_todos_doctores(){
         System.out.println("\nLista de doctores:");
         for(int i = 0; i < lista_doctores.size(); i++){
@@ -85,14 +117,13 @@ public class Hospital {
         if(lista_pacientes.size() > 0){
             System.out.println("Lista de pacientes en el hospital:");
             for(int i = 0; i < lista_pacientes.size(); i++){
-                //Paciente:
-                System.out.println("Paciente: " + lista_pacientes.get(i).getNombre_persona());
+                //Mostrando el nombre del pacienteaciente:
+                System.out.println("\nPaciente: " + lista_pacientes.get(i).getNombre_persona());
                 //Cita agendada por el paciente:
                 List <Cita> cita_agendada_paciente = lista_pacientes.get(i).getCitas_agendadas();
                 //Iterando por las citas del paciente
                 for(int j = 0; j < cita_agendada_paciente.size(); j++){
-                    //Falta buscar que doctor le atiende:
-                    //int ind_doctor = cita_agendada_paciente.get;
+                    //Iterando por la lista de citas mostrando detalles de cada una
                     cita_agendada_paciente.get(j).visualizar_cita(lista_doctores);
                 }
             }
@@ -102,7 +133,9 @@ public class Hospital {
         }
     }
 
-    //Metodos para la creacion de objetos
+    //Metodos para la creacion de instanciass
+
+    //Metodo agregar un derecho habiente
     public Paciente agregar_derecho_habiente(Scanner sc){
         
         System.out.println("\nRegistrando una nueva persona:");
@@ -162,6 +195,7 @@ public class Hospital {
         return nuevo_derecho_habiente;
     }
 
+    //Metodo agendar una cita
     public Cita agendar_cita(Paciente paciente, Scanner scanner) {
         // 1. Mostrar Doctores y Seleccionar uno
         visualizar_todos_doctores();
@@ -271,7 +305,7 @@ public class Hospital {
         }
     }
 
-    //Derecho habientes metodos:
+    //Derecho habientes, utilizando metodo imprimir detalles:
     public void visualizar_derecho_habientes(){
         if (lista_derecho_habientes.size() > 0) {
             System.out.println("Lista de derecho habientes en el hospital:");
