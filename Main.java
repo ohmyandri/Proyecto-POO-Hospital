@@ -89,12 +89,22 @@ public class Main {
                                         Cita nueva_cita = hospital.agendar_cita(derecho_habiente_temporal, sc);
                                         //Obteniendo indice del doctor seleccionado
                                         int i = nueva_cita.getDoctor_seleccionado();
-                                        //Agregando la cita a la agenda del doctor:
-                                        hospital.doctor_especifico(i).agregar_cita(nueva_cita);
-                                        //Agregando la cita a la agenda del paciente:
-                                        derecho_habiente_temporal.agregar_cita(nueva_cita);
-                                        //Agregando la cita a la agenda del hospital:
-                                        hospital.agregar_cita(nueva_cita);
+
+                                        //Verificando si el doctor seleccionado esta disponible
+                                        Doctor doctor_temporal = hospital.doctor_especifico(i);
+                                        if(doctor_temporal.estaDisponible(nueva_cita.getFecha(), nueva_cita.getHora()) == true){
+                                            //Agregando la cita a la agenda del doctor:
+                                            hospital.doctor_especifico(i).agregar_cita(nueva_cita);
+                                            //Agregando la cita a la agenda del paciente:
+                                            derecho_habiente_temporal.agregar_cita(nueva_cita);
+                                            //Agregando la cita a la agenda del hospital:
+                                            hospital.agregar_cita(nueva_cita);
+                                            //Agregando el paciente, a la lista del hospital:
+                                            hospital.agregar_paciente(derecho_habiente_temporal);
+                                        }
+                                        else{
+                                            System.out.println("\nEl doctor no se encuentra disponible en esa fecha y hora, por favor seleccione otro horario");
+                                        }
                                         break;
                                     
                                     //Visualizar citas agendadas de un paciente
