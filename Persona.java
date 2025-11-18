@@ -44,10 +44,4 @@ public abstract class Persona {
     public void setNumero_telefono(String numero_telefono) {
         this.numero_telefono = numero_telefono;
     }
-
-
-    //Metodo para presentarse:
-    public void presentarse(){
-        System.out.println("Hola!, soy " + getNombre_persona());
-    }
 }
