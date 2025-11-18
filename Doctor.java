@@ -77,4 +77,13 @@ public class Doctor extends Persona{
     public void agregar_cita(Cita nueva_cita){
         lista_citas.add(nueva_cita);
     }
+
+    //Detalles del Doctor
+    @Override
+    public void imprimir_detalles() {
+        super.imprimir_detalles();
+        System.out.println("Especialidad: " + getEspecialidad_medicina());
+        System.out.println("Años de experiencia: " + getExperiencia_medicina());
+    }
+
 }
