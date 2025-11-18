@@ -52,18 +52,4 @@ public class Doctor extends Persona{
     public void agregar_cita(Cita nueva_cita){
         lista_citas.add(nueva_cita);
     }
-    
-    /*
-    public void agregarCita(Cita nuevaCita) {
-        this.citasAgendadas.add(nuevaCita);
-    }
-    */
-
-    //Metodo presentarse sobre escrito
-    @Override
-    public void presentarse(){
-        System.out.println("Buenos dias, soy " + getNombre_persona());
-        System.out.println("Cuento con la especialidad de " + getEspecialidad_medicina() + ", y tengo una experiencia de "+ getExperiencia_medicina() + " años en ella");
-    }
-
 }
