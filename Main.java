@@ -127,7 +127,62 @@ public class Main {
                             
                         break;
 
+                        //Para el caso de panel de administrador
                         case 3:
+                            //Verificando que sea un administrador quien esta utilizando los servicios:
+                            try {
+                                String user_temporal, password_temporal;
+                                //Pidiendo usuario:
+                                System.out.print("Ingresa el usuario: ");
+                                user_temporal = sc.nextLine();
+                                System.out.print("Ingresa la contraseña: ");
+                                password_temporal = sc.nextLine();
+
+                                //Verificando sea correcta la contraseña:
+                                if (user_temporal.equals("admin") && password_temporal.equals("0000")) {
+                                    //El administrador podra tener para ver sus doctores, pacientes, y todas las citas agendadas:
+                                    int eleccion_admin = 0;
+                                    while (eleccion_admin != 5) {
+                                        System.out.println("\nPanel de administrador:");
+                                        System.out.println("1. Visualizar Doctores");
+                                        System.out.println("2. Visualizar Derecho-Habientes");
+                                        System.out.println("3. Visualizar Pacientes");
+                                        System.out.println("4. Visualizar Citas Agendadas");
+                                        System.out.println("5. Salir del panel de adminisitrador");
+                                        System.out.print("Elige una opcion: ");
+                                        eleccion_admin = sc.nextInt();
+
+                                        switch (eleccion_admin) {
+                                            case 1:
+                                                hospital.visualizar_todos_doctores();
+                                                break;
+                                            case 2:
+                                                hospital.visualizar_derecho_habientes();
+                                                break;
+                                            
+                                            case 3:
+                                                hospital.visualizar_todos_pacientes();
+                                                break;
+
+                                            case 4:
+                                                hospital.visualizar_citas_hospital(hospital);
+                                                break;
+
+                                            case 5:
+                                                eleccion_admin = 5;
+                                                break;
+
+                                            default:
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                            catch (Exception e) {
+                                System.out.println("Ha habido un error al capturar la contraseña...");
+                                e.printStackTrace();
+                            }
+
                             break;
 
                         //caso para salir del sistema
