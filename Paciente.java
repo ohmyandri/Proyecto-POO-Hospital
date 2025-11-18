@@ -47,6 +47,10 @@ public class Paciente extends Persona{
         citas_agendadas.add(cita_agendada);
     }
 
+    public void eliminar_cita(Cita cita_agendada){
+        citas_agendadas.remove(cita_agendada);
+    }
+
     public void setPassword_seguro_social(String password_seguro_social){
         this.password_seguro_social = password_seguro_social;
     }

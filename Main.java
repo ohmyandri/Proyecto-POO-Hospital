@@ -91,10 +91,10 @@ public class Main {
                                         int i = nueva_cita.getDoctor_seleccionado();
 
                                         //Verificando si el doctor seleccionado esta disponible
-                                        Doctor doctor_temporal = hospital.doctor_especifico(i);
+                                        Doctor doctor_temporal = hospital.seleccionar_doctor_especifico(i);
                                         if(doctor_temporal.estaDisponible(nueva_cita.getFecha(), nueva_cita.getHora()) == true){
                                             //Agregando la cita a la agenda del doctor:
-                                            hospital.doctor_especifico(i).agregar_cita(nueva_cita);
+                                            hospital.seleccionar_doctor_especifico(i).agregar_cita(nueva_cita);
                                             //Agregando la cita a la agenda del paciente:
                                             derecho_habiente_temporal.agregar_cita(nueva_cita);
                                             //Agregando la cita a la agenda del hospital:
@@ -106,7 +106,7 @@ public class Main {
                                             System.out.println("\nEl doctor no se encuentra disponible en esa fecha y hora, por favor seleccione otro horario");
                                         }
                                         break;
-                                    
+
                                     //Visualizar citas agendadas de un paciente
                                     case 2:
                                         hospital.visualizar_cita_agendada_paciente(derecho_habiente_temporal);
@@ -114,6 +114,44 @@ public class Main {
                                     
                                     //Modificar una cita agendada:
                                     case 3:
+                                    //Guardamos la nueva cita:
+                                    //Agendando cita
+                                        //Obteniendo cual es la cita que desea modificar
+                                        if (derecho_habiente_temporal.getCitas_agendadas().size() > 0) {
+                                            hospital.visualizar_cita_agendada_paciente(derecho_habiente_temporal);
+                                            //Pidiendo cual sera la q modificara:
+                                            System.out.print("Ingresa la opcion de cita que deseas modificar");
+                                            int index_cita_modificar = sc.nextInt() - 1;
+                                            sc.nextLine();
+                                            Cita cita_eliminar = hospital.getLista_citas_hospital().get(index_cita_modificar);
+                                            //Borramos la que queremos modificar, de las listas:
+                                            hospital.seleccionar_doctor_especifico(cita_eliminar.getDoctor_seleccionado()).eliminar_cita(cita_eliminar);
+                                            hospital.eliminar_cita(cita_eliminar);
+                                            derecho_habiente_temporal.eliminar_cita(cita_eliminar);
+
+                                            //Guardamos una nueva cita
+                                            Cita cita_modificada = hospital.agendar_cita(derecho_habiente_temporal, sc);
+                                            //Obteniendo indice del doctor seleccionado
+                                            int n = cita_modificada.getDoctor_seleccionado();
+
+                                            //Verificando si el doctor seleccionado esta disponible
+                                            Doctor doctor_modificado = hospital.seleccionar_doctor_especifico(n);
+                                            if(doctor_modificado.estaDisponible(cita_modificada.getFecha(), cita_modificada.getHora()) == true){
+                                                //Agregamos la cita modificada a la agenda del doctor
+                                                hospital.seleccionar_doctor_especifico(n).agregar_cita(cita_modificada);
+                                                //Agregando la cita a la agenda del hospital:
+                                                hospital.agregar_cita(cita_modificada);
+                                                //Agregando la cita a la agenda del paciente
+                                                derecho_habiente_temporal.agregar_cita(cita_modificada);
+                                            }
+                                            else{
+                                                System.out.println("\nEl doctor no se encuentra disponible en esa fecha y hora, por favor seleccione otro horario");
+                                            }
+                                        } 
+                                        else{
+                                            System.out.println("El derecho habiente no tiene citas agendadas por modificar, recomendamos ingresar una cita");
+                                        }
+                                    
                                         break;
                                     
                                     //Cancelar una cita
@@ -191,9 +229,9 @@ public class Main {
                                     System.out.println("\nUsuario y/o contraseña INCORRECTA, pruebe de nuevo");
                                 }
                             }
-                            catch (Exception e) {
+                            catch (Exception InputMismatchException) {
                                 System.out.println("Ha habido un error al capturar la contraseña...");
-                                e.printStackTrace();
+                                InputMismatchException.printStackTrace();
                             }
 
                             break;

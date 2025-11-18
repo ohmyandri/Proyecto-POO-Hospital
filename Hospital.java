@@ -95,7 +95,45 @@ public class Hospital {
         lista_citas_hospital.add(nueva_cita);
     }
 
-    //Metodos para visualizar personas:
+    //Eliminar cita:
+    public void eliminar_cita(Cita nueva_cita){
+        lista_citas_hospital.remove(nueva_cita);
+    }
+
+    //METODOS PARA LA SELECCION
+    //Seleccionar un doctor
+    public Doctor seleccionar_doctor_especifico(int i){
+        return lista_doctores.get(i);
+    }
+    
+    //Seleccionar un derecho-habientes
+    public Paciente seleccion_derecho_habiente(int i, Scanner sc){
+        List<Paciente> lista_derecho_habientes = this.getLista_derecho_habientes();
+        //Primero pedimos las credenciales de dicha persona:
+        try {
+            Paciente paciente_seleccionado = lista_derecho_habientes.get(i-1);
+            String user_NSS, password_NSS;
+            //Pidiendo usuario
+            System.out.print("Ingresa tu NSS: ");
+            user_NSS = sc.nextLine();
+            System.out.print("Ingresa tu contraseña: ");
+            password_NSS = sc.nextLine();
+            
+            if(paciente_seleccionado.getNumero_seguro_social().equals(user_NSS) && paciente_seleccionado.getPassword_seguro_social().equals(password_NSS)){
+                return lista_derecho_habientes.get(i-1);
+            }
+            else{
+                System.out.println("Numero de Seguro social o contraseña equivocados");
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Ha habido un error al capturar la contraseña...");
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    //METODOS PARA LA VISUALIZACION
     //Metodo visualizar doctores, ya empleando metodo sobreescrito imprimir detalles
     public void visualizar_todos_doctores(){
         System.out.println("\nLista de doctores:");
@@ -108,10 +146,6 @@ public class Hospital {
     }
 
     //Seleccionar un doctor en especifico:
-    public Doctor doctor_especifico(int i){
-        return lista_doctores.get(i);
-    }
-
     //Visualizar todos los pacientes en el hospital:
     public void visualizar_todos_pacientes(){
         if(lista_pacientes.size() > 0){
@@ -133,8 +167,48 @@ public class Hospital {
         }
     }
 
-    //Metodos para la creacion de instanciass
+    //Visualizar citas agendadas
+    public void visualizar_cita_agendada_paciente(Paciente paciente_activo){
+        if (paciente_activo.getCitas_agendadas().size() > 0){
+            System.out.println("Paciente: " + paciente_activo.getNombre_persona());
+            List <Cita> cita_agendada_paciente = paciente_activo.getCitas_agendadas();
+            for(int j = 0; j < cita_agendada_paciente.size(); j++){
+                System.out.print("Cita [" + (j+1) + "]");
+                cita_agendada_paciente.get(j).visualizar_cita(lista_doctores);
+            }
+        }
+        else{
+            System.out.println(paciente_activo.getNombre_persona() + " no tiene citas agendadas!");
+        }
+    }
 
+    //Visualizar todas las citas del hospital:
+    public void visualizar_citas_hospital(Hospital hospital){
+        if (lista_citas_hospital.size() > 0) {
+            for(int j = 0; j < lista_citas_hospital.size(); j++){
+                lista_citas_hospital.get(j).visualizar_cita(lista_doctores);
+            }
+        }
+        else{
+            System.out.println("\nNO EXISTEN CITAS AGENDADAS");
+        }
+    }
+
+    //Derecho habientes, utilizando metodo imprimir detalles:
+    public void visualizar_derecho_habientes(){
+        if (lista_derecho_habientes.size() > 0) {
+            System.out.println("Lista de derecho habientes en el hospital:");
+            for(int i = 0; i < lista_derecho_habientes.size(); i++){
+                System.out.println("\nDerecho habiente [" + (i+1) + "]");
+                lista_derecho_habientes.get(i).imprimir_detalles();
+            }
+        }
+        else{
+            System.out.println("\nNO EXISTE NINGUN DERECHO-HABIENTE REGISTRADO EN EL HOSPITAL");
+        }
+    }
+
+    //METODOS PARA LA CREACION DE INSTANCIAS
     //Metodo agregar un derecho habiente
     public Paciente agregar_derecho_habiente(Scanner sc){
         
@@ -195,7 +269,8 @@ public class Hospital {
         return nuevo_derecho_habiente;
     }
 
-    //Metodo agendar una cita
+    //METODOS PARA LAS CITAS:
+    //Metodo agendar una cita:
     public Cita agendar_cita(Paciente paciente, Scanner scanner) {
         // 1. Mostrar Doctores y Seleccionar uno
         visualizar_todos_doctores();
@@ -209,7 +284,7 @@ public class Hospital {
                 doctorIndex = scanner.nextInt() - 1;
                 scanner.nextLine(); // Consumir el salto de línea
                 
-                doctorSeleccionado = doctor_especifico(doctorIndex);
+                doctorSeleccionado = seleccionar_doctor_especifico(doctorIndex);
             } catch (InputMismatchException e) {
                 System.out.println("Error: Ingrese un número para seleccionar al doctor.");
                 scanner.nextLine(); // Limpiar el buffer
@@ -221,7 +296,7 @@ public class Hospital {
         // 2. Solicitar Fecha
         LocalDate fechaCita = null;
         while (fechaCita == null) {
-            System.out.println("\n--- Seleccione la Fecha de la Cita ---");
+            System.out.println("\nSelecciona la Fecha de la Cita");
             try {
                 System.out.print("Ingrese el año (Ej: 2025): ");
                 int anio = scanner.nextInt();
@@ -250,7 +325,7 @@ public class Hospital {
         // 3. Solicitar Hora
         LocalTime horaCita = null;
         while (horaCita == null) {
-            System.out.println("\n--- Seleccione la Hora de la Cita ---");
+            System.out.println("\nSelecciona la Hora de la Cita");
             try {
                 System.out.print("Ingrese la hora (formato 24h, Ej: 14 para 2 PM): ");
                 int horaInt = scanner.nextInt();
@@ -275,74 +350,103 @@ public class Hospital {
         
         // 5. Crear la Cita
         // Aquí usamos el índice del doctor que el usuario seleccionó (doctorIndex)
-        Cita nuevaCita = new Cita(doctorIndex, paciente, fechaCita, horaCita, motivo);
-        return nuevaCita;
+        Cita nueva_cita = new Cita(doctorIndex, paciente, fechaCita, horaCita, motivo);
+        return nueva_cita;
     }
 
-    //Visualizar citas agendadas
-    public void visualizar_cita_agendada_paciente(Paciente paciente_activo){
-        if (paciente_activo.getCitas_agendadas().size() > 0){
-            System.out.println("Paciente: " + paciente_activo.getNombre_persona());
-            List <Cita> cita_agendada_paciente = paciente_activo.getCitas_agendadas();
-            for(int j = 0; j < cita_agendada_paciente.size(); j++){
-                cita_agendada_paciente.get(j).visualizar_cita(lista_doctores);
+    //Metodo para modificar una cita:
+    public Cita modificar_cita(Cita nueva_cita, Scanner scanner) {
+        //Mostrar Doctores y Seleccionar uno
+        visualizar_todos_doctores();
+        
+        int doctorIndex = -1;
+        Doctor doctorSeleccionado = null;
+        
+        //Guardando el doctor a utlizar, mediante index
+        while (doctorSeleccionado == null) {
+            System.out.print("\nIngrese el número, Opción, del doctor al que desea cambiar/mantener: ");
+            try {
+                doctorIndex = scanner.nextInt() - 1;
+                //Consumir el salto de línea
+                scanner.nextLine();
+                
+                doctorSeleccionado = seleccionar_doctor_especifico(doctorIndex);
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese un número para seleccionar al doctor.");
+                //Limpiar el buffer
+                scanner.nextLine();
             }
         }
-        else{
-            System.out.println(paciente_activo.getNombre_persona() + " no tiene citas agendadas!");
-        }
-    }
 
-    //Visualizar todas las citas del hospital:
-    public void visualizar_citas_hospital(Hospital hospital){
-        if (lista_citas_hospital.size() > 0) {
-            for(int j = 0; j < lista_citas_hospital.size(); j++){
-                lista_citas_hospital.get(j).visualizar_cita(lista_doctores);
+        System.out.println("\nDoctor seleccionado: " + doctorSeleccionado.getNombre_persona());
+        
+        //Solicitar Fecha y guardandola
+        LocalDate fechaCita = null;
+        while (fechaCita == null) {
+            System.out.println("\nSelecciona la Fecha de la Cita");
+            try {
+                System.out.print("Ingrese el año (Ej: 2025): ");
+                int anio = scanner.nextInt();
+                System.out.print("Ingrese el mes (1-12): ");
+                int mes = scanner.nextInt();
+                System.out.print("Ingrese el día: ");
+                int dia = scanner.nextInt();
+                scanner.nextLine();
+                
+                fechaCita = LocalDate.of(anio, mes, dia);
+                
+                if (fechaCita.isBefore(LocalDate.now())) {
+                    System.out.println("Error: No se puede agendar una cita en el pasado.");
+                    fechaCita = null;
+                }
+                
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese solo números para la fecha.");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Error: La fecha es inválida (ej: 30 de febrero). Intente de nuevo.");
+                scanner.nextLine();
             }
         }
-        else{
-            System.out.println("\nNO EXISTEN CITAS AGENDADAS");
-        }
-    }
-
-    //Derecho habientes, utilizando metodo imprimir detalles:
-    public void visualizar_derecho_habientes(){
-        if (lista_derecho_habientes.size() > 0) {
-            System.out.println("Lista de derecho habientes en el hospital:");
-            for(int i = 0; i < lista_derecho_habientes.size(); i++){
-                System.out.println("\nDerecho habiente [" + (i+1) + "]");
-                lista_derecho_habientes.get(i).imprimir_detalles();
+        
+        //Solicitar Hora
+        LocalTime horaCita = null;
+        while (horaCita == null) {
+            System.out.println("\nSeleccione la Hora de la Cita");
+            try {
+                System.out.print("Ingrese la hora (formato 24h, Ej: 14 para 2 PM): ");
+                int horaInt = scanner.nextInt();
+                System.out.print("Ingrese los minutos (Ej: 00, 30): ");
+                int minutoInt = scanner.nextInt();
+                scanner.nextLine();
+                
+                horaCita = LocalTime.of(horaInt, minutoInt);
+                
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese solo números para la hora.");
+                scanner.nextLine();
+            } catch (Exception e) {
+                System.out.println("Error: La hora es inválida (ej: 25 horas). Intente de nuevo.");
+                scanner.nextLine();
             }
         }
-        else{
-            System.out.println("\nNO EXISTE NINGUN DERECHO-HABIENTE REGISTRADO EN EL HOSPITAL");
-        }
-    }
-
-    //Seleccionar un derecho-habientes
-    public Paciente seleccion_derecho_habiente(int i, Scanner sc){
-        List<Paciente> lista_derecho_habientes = this.getLista_derecho_habientes();
-        //Primero pedimos las credenciales de dicha persona:
+        
+        //Solicitar Motivo
+        System.out.print("\nIngrese el motivo de la cita: ");
+        String motivo = null;
         try {
-            Paciente paciente_seleccionado = lista_derecho_habientes.get(i-1);
-            String user_NSS, password_NSS;
-            //Pidiendo usuario
-            System.out.print("Ingresa tu NSS: ");
-            user_NSS = sc.nextLine();
-            System.out.print("Ingresa tu contraseña: ");
-            password_NSS = sc.nextLine();
-
-            if(paciente_seleccionado.getNumero_seguro_social().equals(user_NSS) && paciente_seleccionado.getPassword_seguro_social().equals(password_NSS)){
-                return lista_derecho_habientes.get(i-1);
-            }
-            else{
-                System.out.println("Numero de Seguro social o contraseña equivocados");
-                return null;
-            }
+            motivo = scanner.nextLine();
+        } catch (InputMismatchException e) {
+                System.out.println("Error: Ingrese solo números para la hora.");
+                scanner.nextLine();
         } catch (Exception e) {
-            System.out.println("Ha habido un error al capturar la contraseña...");
             e.printStackTrace();
-            return null;
+            scanner.nextLine();
         }
+        
+        // 5. Crear la Cita
+        // Aquí usamos el índice del doctor que el usuario seleccionó (doctorIndex)
+        Cita cita_modificada = new Cita(doctorIndex, nueva_cita.getPaciente_agendado(), fechaCita, horaCita, motivo);
+        return cita_modificada;
     }
 }

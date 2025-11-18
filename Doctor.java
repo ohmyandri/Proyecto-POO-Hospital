@@ -78,6 +78,10 @@ public class Doctor extends Persona{
         lista_citas.add(nueva_cita);
     }
 
+    public void eliminar_cita(Cita nueva_cita){
+        lista_citas.remove(nueva_cita);
+    }
+
     //Detalles del Doctor
     @Override
     public void imprimir_detalles() {
