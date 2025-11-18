@@ -32,7 +32,7 @@ public class Main {
                         eleccion_exterior = sc.nextInt();
                         sc.nextLine(); //Limpiando Buffer
                     } else {
-                        System.out.println("Error: Ingrese un número válido.");
+                        System.out.println("\nERROR: Ingrese un número válido.");
                         sc.nextLine(); //Limpiando Buffer
                         continue;
                     }
@@ -176,6 +176,8 @@ public class Main {
                                                 break;
                                         }
                                     }
+                                } else {
+                                    System.out.println("\nUsuario y/o contraseña INCORRECTA, pruebe de nuevo");
                                 }
                             }
                             catch (Exception e) {
