@@ -129,7 +129,8 @@ public class Main {
 
                         case 3:
                             break;
-                        
+
+                        //caso para salir del sistema
                         case 4:
                             eleccion_exterior = 4;
                             break;
