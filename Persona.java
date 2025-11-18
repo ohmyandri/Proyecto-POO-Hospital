@@ -44,4 +44,12 @@ public abstract class Persona {
     public void setNumero_telefono(String numero_telefono) {
         this.numero_telefono = numero_telefono;
     }
+
+    //Metodo que se podra sobreescribir:
+    public void imprimir_detalles(){
+        System.out.println("Nombre: " + nombre_persona);
+        System.out.println("Direccion: " + direccion);
+        System.out.println("Edad: " + edad);
+        System.out.println("Numero de telefono: " + numero_telefono);
+    }
 }
