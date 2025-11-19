@@ -4,13 +4,13 @@ import java.util.List;
 public class Paciente extends Persona{
     //Agregando atributos mas específicos:
     private String CURP;
-    private String numero_seguro_social;
+    private long numero_seguro_social;
     private String password_seguro_social;
     private List <Cita> citas_agendadas;
 
 
     //Constructor utilizando super para aprovechar lo ya creado con la clase abstracta persona
-    Paciente(String nombre_persona, String direccion, int edad, String numero_telefono, String CURP, String numero_seguro_social, String password_seguro_social) {
+    Paciente(String nombre_persona, String direccion, int edad, long numero_telefono, String CURP, long numero_seguro_social, String password_seguro_social) {
         super(nombre_persona, direccion, edad, numero_telefono);
         this.CURP = CURP;
         this.numero_seguro_social = numero_seguro_social;
@@ -23,7 +23,7 @@ public class Paciente extends Persona{
         return CURP;
     }
 
-    public String getNumero_seguro_social() {
+    public long getNumero_seguro_social() {
         return numero_seguro_social;
     }
 
@@ -39,7 +39,7 @@ public class Paciente extends Persona{
         this.CURP = CURP;
     }
 
-    public void setNumero_seguro_social(String numero_seguro_social) {
+    public void setNumero_seguro_social(long numero_seguro_social) {
         this.numero_seguro_social = numero_seguro_social;
     }
 

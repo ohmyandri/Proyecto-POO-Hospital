@@ -10,9 +10,9 @@ public class Main {
             System.out.println("Ubicacion: " + hospital.getDireccion_hospital());
 
             //Creando doctores
-            Doctor doctor_1 = new Doctor("Dr. Dominguez", "Avenida Central 101", 32, "552233445", "Medicina interna", 15);
-            Doctor doctor_2 = new Doctor("Dra. Ramírez", "Calle Falsa 123", 35, "551234567", "Pediatría", 8);
-            Doctor doctor_3 = new Doctor("Dr. Pérez", "Avenida Siempre Viva 742", 45, "557654321", "Cardiología", 20);        
+            Doctor doctor_1 = new Doctor("Dr. Dominguez", "Avenida Central 101", 32, 552233445, "Medicina interna", 15);
+            Doctor doctor_2 = new Doctor("Dra. Ramírez", "Calle Falsa 123", 35, 551234567, "Pediatría", 8);
+            Doctor doctor_3 = new Doctor("Dr. Pérez", "Avenida Siempre Viva 742", 45, 557654321, "Cardiología", 20);        
             
             //Agregando doctores a la lista de doctores del hospital
             hospital.agregar_doctor(doctor_1);

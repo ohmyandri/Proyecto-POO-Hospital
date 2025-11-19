@@ -112,14 +112,14 @@ public class Hospital {
         //Primero pedimos las credenciales de dicha persona:
         try {
             Paciente paciente_seleccionado = lista_derecho_habientes.get(i-1);
-            String user_NSS, password_NSS;
+            long user_NSS; String password_NSS;
             //Pidiendo usuario
             System.out.print("Ingresa tu NSS: ");
-            user_NSS = sc.nextLine();
+            user_NSS = sc.nextLong();
             System.out.print("Ingresa tu contraseña: ");
             password_NSS = sc.nextLine();
             
-            if(paciente_seleccionado.getNumero_seguro_social().equals(user_NSS) && paciente_seleccionado.getPassword_seguro_social().equals(password_NSS)){
+            if(paciente_seleccionado.getNumero_seguro_social() == user_NSS && paciente_seleccionado.getPassword_seguro_social().equals(password_NSS)){
                 return lista_derecho_habientes.get(i-1);
             }
             else{
@@ -223,15 +223,33 @@ public class Hospital {
         System.out.print("Ingrese el CURP: ");
         String curp = sc.nextLine();
         
+        long nss = (long)(0);
+
+        while (nss == 0) {
         System.out.print("Ingrese el Número de Seguro Social (NSS): ");
-        String nss = sc.nextLine();
+        try {
+            nss = sc.nextLong();
+            sc.nextLine();
+            
+            if (nss <= 0) {
+                System.out.println("Error: El NSS debe ser un número positivo.");
+                nss = (long) 0;
+            }
+            
+        }
+        catch (InputMismatchException e) {
+            System.out.println("Error: Ingrese un NSS correcto (solo números).");
+            sc.nextLine(); //Limpiar el buffer
+            nss = (long)(0);
+        }
+        }
 
         System.out.print("Ingrese la contraseña, para acceder a su sistema de Seguro Social: ");
         String password = sc.nextLine();
 
         //Falta agregar que el usuario pueda tener su contraseña
         
-        // 2. Datos numéricos (usando nextInt() con manejo de errores)
+        //Datos numéricos (usando nextInt() con manejo de errores)
         int edad = -1;
         while (edad < 0 || edad > 120) {
             System.out.print("Ingrese la edad: ");
@@ -247,13 +265,13 @@ public class Hospital {
             }
         }
 
-        String telefono = null;
-        while (telefono == null) {
+        long telefono = 0;
+        while (telefono == 0) {
             System.out.print("Ingrese el número de teléfono: ");
             try {
-                telefono = sc.nextLine();
+                telefono = sc.nextLong();
             } catch (InputMismatchException e) {
-                System.out.println("Error: Ingrese un número correcto de el teléfono.");
+                System.out.println("Error: Ingrese un número de teléfono correcto.");
                 sc.nextLine(); // Limpiar buffer
             }
         }

@@ -11,7 +11,7 @@ public class Doctor extends Persona{
     private List <Cita> lista_citas;
 
     //Constructor usando Super para lo ya hecho en la clase abstracta
-    public Doctor(String nombre_persona, String direccion, int edad, String numero_telefono, String especialidad_medicina, int experiencia_medicina) {
+    public Doctor(String nombre_persona, String direccion, int edad, long numero_telefono, String especialidad_medicina, int experiencia_medicina) {
         super(nombre_persona, direccion, edad, numero_telefono);
         this.especialidad_medicina = especialidad_medicina;
         this.experiencia_medicina = experiencia_medicina;
