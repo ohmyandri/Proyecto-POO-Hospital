@@ -1,5 +1,5 @@
+//Proyecto final, sistema de agendado de citas en un hospital:
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {

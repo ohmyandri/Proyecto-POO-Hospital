@@ -9,6 +9,7 @@ public class Paciente extends Persona{
     private List <Cita> citas_agendadas;
 
 
+    //Constructor utilizando super para aprovechar lo ya creado con la clase abstracta persona
     Paciente(String nombre_persona, String direccion, int edad, String numero_telefono, String CURP, String numero_seguro_social, String password_seguro_social) {
         super(nombre_persona, direccion, edad, numero_telefono);
         this.CURP = CURP;
@@ -55,6 +56,7 @@ public class Paciente extends Persona{
         this.password_seguro_social = password_seguro_social;
     }
 
+    //Sobre escribiendo el metodo de la clase abstracta Persona
     @Override
     public void imprimir_detalles() {
         super.imprimir_detalles(); 

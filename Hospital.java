@@ -145,7 +145,6 @@ public class Hospital {
         }
     }
 
-    //Seleccionar un doctor en especifico:
     //Visualizar todos los pacientes en el hospital:
     public void visualizar_todos_pacientes(){
         if(lista_pacientes.size() > 0){
@@ -272,7 +271,7 @@ public class Hospital {
     //METODOS PARA LAS CITAS:
     //Metodo agendar una cita:
     public Cita agendar_cita(Paciente paciente, Scanner scanner) {
-        // 1. Mostrar Doctores y Seleccionar uno
+        //Mostrar Doctores y Seleccionar uno
         visualizar_todos_doctores();
         
         int doctorIndex = -1;
@@ -293,7 +292,7 @@ public class Hospital {
 
         System.out.println("\nDoctor seleccionado: " + doctorSeleccionado.getNombre_persona());
         
-        // 2. Solicitar Fecha
+        //Solicitar Fecha
         LocalDate fechaCita = null;
         while (fechaCita == null) {
             System.out.println("\nSelecciona la Fecha de la Cita");
@@ -322,7 +321,7 @@ public class Hospital {
             }
         }
         
-        // 3. Solicitar Hora
+        //Solicitar Hora
         LocalTime horaCita = null;
         while (horaCita == null) {
             System.out.println("\nSelecciona la Hora de la Cita");
@@ -344,12 +343,12 @@ public class Hospital {
             }
         }
         
-        // 4. Solicitar Motivo
+        //Solicitar Motivo
         System.out.print("\nIngrese el motivo de la cita: ");
         String motivo = scanner.nextLine();
         
-        // 5. Crear la Cita
-        // Aquí usamos el índice del doctor que el usuario seleccionó (doctorIndex)
+        //Crear la Cita
+        //Aquí usamos el índice del doctor que el usuario selecciono
         Cita nueva_cita = new Cita(doctorIndex, paciente, fechaCita, horaCita, motivo);
         return nueva_cita;
     }

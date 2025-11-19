@@ -10,6 +10,7 @@ public class Doctor extends Persona{
     private List <Paciente> lista_pacientes;
     private List <Cita> lista_citas;
 
+    //Constructor usando Super para lo ya hecho en la clase abstracta
     public Doctor(String nombre_persona, String direccion, int edad, String numero_telefono, String especialidad_medicina, int experiencia_medicina) {
         super(nombre_persona, direccion, edad, numero_telefono);
         this.especialidad_medicina = especialidad_medicina;
@@ -33,19 +34,17 @@ public class Doctor extends Persona{
                 //Definiendo el rango de tiempo de una hora
                 LocalTime hora_inicio = hora_registrada;
                 LocalTime hora_fin = hora_registrada.plusMinutes(59);
-                
-                // 2. Comprobar si la hora solicitada CAE DENTRO O COINCIDE con el slot ocupado.
-                
-                // Check 1: ¿La nueva hora solicitada es la hora EXACTA de una cita existente? (10:00 vs 10:00)
+
+                //Verificando si la nueva hora, es la misma exacta hora a la de la cita que encontramos ese mismo dia
                 boolean coincideExactamente = horaSolicitada.equals(hora_registrada);
                 
-                // Check 2: ¿La nueva hora está entre el inicio y el fin del slot existente? (Ej: Cita 10:00-10:59, solicita 10:30)
+                //Verificando si se encuentra dentro del intervalo de una hora que dura la cita:
                 boolean estaDentro = horaSolicitada.isAfter(hora_inicio) && horaSolicitada.isBefore(hora_fin.plusMinutes(1));
                 
                 //Si coincide o cae dentro del rango de 60 minutos
                 //Verificamos que si alguno de los dos es true, solo decimos false
                 if (coincideExactamente || estaDentro) {
-                    return false; // No está disponible
+                    return false;
                 }
             }
         }
@@ -83,9 +82,11 @@ public class Doctor extends Persona{
     }
 
     //Detalles del Doctor
+    //Sobre escribiendo el metodo de la clase abstracta Persona
     @Override
     public void imprimir_detalles() {
         super.imprimir_detalles();
+        //Imprimiendo detalles mas especificos del doctor, osea de la clase que hereda
         System.out.println("Especialidad: " + getEspecialidad_medicina());
         System.out.println("Años de experiencia: " + getExperiencia_medicina());
     }

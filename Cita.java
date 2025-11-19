@@ -63,7 +63,7 @@ public class Cita {
 
     //Ver cita:
     public void visualizar_cita(List <Doctor> lista_doctores){
-        //Mostrando al doctor:
+        //Mostrando al doctor haciendo uso de los getters, y los this para el objeto Cita:
         System.out.println("\nDoctor: " + lista_doctores.get(doctor_seleccionado).nombre_persona + " ,Especialidad: " + lista_doctores.get(doctor_seleccionado).getEspecialidad_medicina());
         System.out.println("Fecha: " + this.fecha);
         System.out.println("Hora: " + this.hora);
