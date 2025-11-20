@@ -12,6 +12,7 @@ public class Hospital {
     private List <Paciente> lista_pacientes;
     private List <Paciente> lista_derecho_habientes;
     private List <Cita> lista_citas_hospital;
+    private Farmacia farmacia_hospital;
     
     //Constructor:
     public Hospital(String nombre_hospital, String direccion_hospital){
@@ -46,6 +47,10 @@ public class Hospital {
     
     public List <Cita> getLista_citas_hospital(){
         return lista_citas_hospital;
+    }
+
+    public Farmacia getFarmacia(){
+        return farmacia_hospital;
     }
 
     public void setNombre_hospital(String nombre_hospital){

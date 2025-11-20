@@ -14,6 +14,12 @@ public class Main {
             Doctor doctor_2 = new Doctor("Dra. Ramírez", "Calle Falsa 123", 35, 551234567, "Pediatría", 8);
             Doctor doctor_3 = new Doctor("Dr. Pérez", "Avenida Siempre Viva 742", 45, 557654321, "Cardiología", 20);        
             
+            //Creando encargada de la farmacia
+            EncargadaFarmacia encargada_Farmacia = new EncargadaFarmacia("Lupita", null, 48, 559119110);
+            
+            //Creando la farmacia:
+            Farmacia farmacia_hospital = new Farmacia(encargada_Farmacia);
+
             //Agregando doctores a la lista de doctores del hospital
             hospital.agregar_doctor(doctor_1);
             hospital.agregar_doctor(doctor_2);
@@ -62,13 +68,14 @@ public class Main {
 
                             //Menu Interno => PACIENTE
                             int eleccion = 0;
-                            while (eleccion != 5 && derecho_habiente_temporal != null) {
+                            while (eleccion != 6 && derecho_habiente_temporal != null) {
                                 System.out.println("\nMENÚ PRINCIPAL");
                                 System.out.println("1. Crear y agendar una nueva cita");
                                 System.out.println("2. Visualizar mis citas agendadas");
                                 System.out.println("3. Modificar una cita agendada");
                                 System.out.println("4. Cancelar una cita agendada");
-                                System.out.println("5. Salir del sistema");
+                                System.out.println("5. Ingresar a la farmacia del hospital:");
+                                System.out.println("6. Salir del sistema");
                                 System.out.print("Ingrese su opción: ");
                                 
                                 //Leyendo entrada del usuario
@@ -183,8 +190,38 @@ public class Main {
                                         derecho_habiente_temporal.eliminar_cita(cita_eliminar);
                                         break;
 
+                                    //Farmacia Ingresar
                                     case 5:
-                                        eleccion = 5;
+                                        while(true){
+                                        //Display de productos de la farmacia:
+                                            farmacia_hospital.getEncargadaFarmacia().ver_todos_detalles_objetos(hospital);
+                                            int farmaco_deseado = 0;
+                                            //Preguntando cual farmaco desea:
+                                            while(farmaco_deseado == 0){
+                                                try {
+                                                    System.out.print("Ingresa el numero del farmaco deseado: ");
+                                                    farmaco_deseado = sc.nextInt() - 1; //restamos uno para hacerlo 0 index
+                                                    break;
+                                                } catch (Exception e) {
+                                                    System.out.println("Ingresa un numero");
+                                                }
+                                            }
+
+                                            if(farmacia_hospital.getFarmacos_disponibles().get(farmaco_deseado).getStock_disponible() > 0){
+                                                System.out.println("Se agrego el objeto a su inventario, y se le resto el precio!!!");
+                                            }
+
+                                            //Preguntando si desea salir:
+                                            System.out.println("Desea salir del sistema de farmacia? [S(si)/N(No)]");
+                                            String decision = sc.nextLine();
+                                            if(decision.equals("Y")){
+                                                break;
+                                            }
+                                        }
+                                        break;
+
+                                    case 6:
+                                        eleccion = 6;
                                         derecho_habiente_temporal = null;
 
                                     default:

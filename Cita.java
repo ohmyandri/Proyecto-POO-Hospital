@@ -70,4 +70,6 @@ public class Cita {
         System.out.println("Motivo de la cita: " + this.motivo_cita);
     }
 
+    
+
 }

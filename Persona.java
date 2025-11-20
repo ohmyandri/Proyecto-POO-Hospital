@@ -7,6 +7,7 @@ public abstract class Persona {
     protected int edad;
     protected long numero_telefono;
     protected List <Objeto> inventario;
+    protected double dinero = 10000;
 
     //Constructor
     Persona(String nombre_persona, String direccion, int edad, long numero_telefono){
