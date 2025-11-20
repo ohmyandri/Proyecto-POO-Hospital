@@ -101,11 +101,6 @@ public class Hospital {
         lista_citas_hospital.add(nueva_cita);
     }
 
-    //Eliminar cita:
-    public void eliminar_cita(Cita nueva_cita){
-        lista_citas_hospital.remove(nueva_cita);
-    }
-
     //METODOS PARA LA SELECCION
     //Seleccionar un doctor
     public Doctor seleccionar_doctor_especifico(int i){
@@ -472,5 +467,11 @@ public class Hospital {
         // Aquí usamos el índice del doctor que el usuario seleccionó (doctorIndex)
         Cita cita_modificada = new Cita(doctorIndex, nueva_cita.getPaciente_agendado(), fechaCita, horaCita, motivo);
         return cita_modificada;
+    }
+
+    
+    //Eliminar cita:
+    public void eliminar_cita(Cita nueva_cita){
+        lista_citas_hospital.remove(nueva_cita);
     }
 }
