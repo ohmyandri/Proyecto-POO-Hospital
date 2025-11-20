@@ -65,4 +65,15 @@ public class Paciente extends Persona{
         System.out.println("Número de Seguro Social (NSS): " + getNumero_seguro_social());
         System.out.println("Citas Agendadas: " + getCitas_agendadas().size());
     }
+
+    @Override
+    public void ver_inventario(){
+        try {
+            for(int i = 0; i < inventario.size(); i++){
+                inventario.get(i).ver_detalles_objeto();;
+            }
+        } catch (Exception e) {
+            System.out.println("Error inesperado, pruebe de nuevo");
+        }
+    }
 }
