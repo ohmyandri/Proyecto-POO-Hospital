@@ -13,8 +13,9 @@ public class Main {
             //Dando una bienvenida al sistema de agendar citas:
             System.out.println("Sistema agendar citas del hospital: " + hospital.getNombre_hospital());
             System.out.println("Ubicacion: " + hospital.getDireccion_hospital());
-            //debug
+            /*debug
             hospital.agregar_derecho_habiente(new Paciente("andrick", "Ignacio", 20, 557912781, "cosa", 123, "123"));
+            */
             //Creando doctores
             Doctor doctor_1 = new Doctor("Dr. Dominguez", "Avenida Central 101", 32, 552233445, "Medicina interna", 15);
             Doctor doctor_2 = new Doctor("Dra. Ramírez", "Calle Falsa 123", 35, 551234567, "Pediatría", 8);
@@ -342,8 +343,11 @@ public class Main {
                                     case 6:
                                         derecho_habiente_temporal.visualizarMonedero();
                                         derecho_habiente_temporal.visualizarInventario();
+                                        break;
+
                                     case 7:
                                         derecho_habiente_temporal = null;
+                                        break;
 
                                     default:
                                         break;
