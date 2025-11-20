@@ -13,6 +13,7 @@ public class Farmaco extends Objeto{
         this.tabletas = tabletas;
     }
 
+    //Getters y setters necesarios
     public double getPrecio(){
         return this.precio;
     }
@@ -33,6 +34,7 @@ public class Farmaco extends Objeto{
         this.stock_disponible = stock_disponible;
     }
     
+    //Metodo para ver detalles usando override
     @Override
     public void ver_detalles_objeto(){
         System.out.println("Medicina: " + getNombre_objeto());

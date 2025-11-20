@@ -2,12 +2,6 @@ public class EncargadaFarmacia extends Persona {
     EncargadaFarmacia(String nombre_persona, String direccion, int edad, long numero_telefono) {
         super(nombre_persona, direccion, edad, numero_telefono);
     }
-    
-    @Override
-    public void bienvenida(){
-        System.out.println("Bienvenido a la farmacia, que le podemos ofrecer?");
-    }
-
     //Metodos extra de la encargada
     //Metodo para solicitar farmaco
 

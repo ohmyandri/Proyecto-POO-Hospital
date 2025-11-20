@@ -9,6 +9,7 @@ public class Farmacia {
         this.encargada =encargada;
         //Iniciamos tambien la lista de farmacos como una ya definida
         this.farmacos_disponibles = new ArrayList<>();
+        //Llamamos a incializarInventario proporcionando la lista de los medicamentos disponibles
         inicializarInventario();
     }
 
