@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Paciente extends Persona{
     //Agregando atributos mas específicos:
@@ -68,22 +69,35 @@ public class Paciente extends Persona{
 
     @Override
     public void visualizarMonedero(){
-        System.out.println("Monto disponible: " + getDinero());
+        System.out.println("\nMonto disponible: " + getDinero());
     }
 
     @Override
     public void visualizarInventario(){
-        if(this.inventario.size() > 0){
-            System.out.println("Inventario: " + getDinero());
-            for (int i = 0; i < this.inventario.size(); i++) {
-                System.out.println("Objeto [" + (i+1) + "]");
-                //Detalles de objeto:
-                System.out.println("Objeto: " + this.inventario.get(i).getNombre_objeto());
+        // Verificar si el mapa contiene elementos (entry sets)
+        if (this.inventario.isEmpty() != true){
+            
+            System.out.println("\nInventario: ");
+            
+            int contador = 1;
+            
+            //Iterar sobre los pares de clave (Farmaco) y valor (Cantidad)
+            for (Map.Entry<Farmaco, Integer> entry : this.inventario.entrySet()) {
+                Farmaco farmaco = entry.getKey();
+                int cantidad = entry.getValue();
+                
+                // Solo mostramos productos con cantidad mayor a cero, por si acaso.
+                if (cantidad > 0) {
+                    System.out.println("Objeto [" + contador + "] ---");
+                    System.out.println("Nombre: " + farmaco.getNombre_objeto());
+                    System.out.println("Cantidad: " + cantidad + " unidades");
+                    // Opcional: Mostrar detalles adicionales del fármaco si lo deseas
+                    // System.out.println("Dosis: " + farmaco.getDosis()); 
+                    contador++;
+                }
             }
+        } else {
+            System.out.println("No tienes objetos guardados en tu inventario.");
         }
-        else{
-            System.out.println("No tienes objetos guardados");
-        }
-        
     }
 }

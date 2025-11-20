@@ -295,7 +295,7 @@ public class Main {
                                                                 farmacia_hospital.bajarStock(farmaco_deseado, cantidad_comprar);
 
                                                                 //Agregando al inventario del usuario su compra:
-                                                                
+                                                                derecho_habiente_temporal.agregarFarmaco(farmaco_seleccionado, cantidad_comprar);
                                                                 
                                                                 //Avisando lo que compró
                                                                 System.out.println("\nCompra exitosa: Se adquirieron " + cantidad_comprar + " unidades de " + farmaco_seleccionado.getNombre_objeto());

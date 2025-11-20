@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Persona {
     protected String nombre_persona;
     protected String direccion;
     protected int edad;
     protected long numero_telefono;
-    protected List <Objeto> inventario;
+    protected Map <Farmaco, Integer> inventario;
     protected double dinero = 10000;
 
     //Constructor
@@ -16,7 +18,7 @@ public abstract class Persona {
         this.edad = edad;
         this.numero_telefono = numero_telefono;
         //Iniciando el inventario de la persona
-        this.inventario = new ArrayList<>();
+        this.inventario = new HashMap<>();
     }
 
     //Getters y Setters
@@ -66,7 +68,7 @@ public abstract class Persona {
     public void bienvenida(){
     }
 
-    public List <Objeto> getInventario(){
+    public Map<Farmaco, Integer> getInventario() {
         return inventario;
     }
     //Metodo bajar dinero:
@@ -80,5 +82,14 @@ public abstract class Persona {
 
     //metodo para visualizar el inventario y el monedero:
     public void visualizarMonedero(){
+    }
+
+    // Nuevo método para agregar productos al inventario del paciente:
+    public void agregarFarmaco(Farmaco farmaco, int cantidad) {
+        // getOrDefault: Obtiene la cantidad actual. Si el fármaco no existe, devuelve 0.
+        int cantidad_actual = inventario.getOrDefault(farmaco, 0);
+        
+        // Pone el fármaco en el mapa con la nueva cantidad (actual + nueva)
+        inventario.put(farmaco, cantidad_actual + cantidad);
     }
 }
