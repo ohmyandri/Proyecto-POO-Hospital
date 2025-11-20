@@ -293,6 +293,9 @@ public class Main {
                                                                 
                                                                 //Actualizando el stock
                                                                 farmacia_hospital.bajarStock(farmaco_deseado, cantidad_comprar);
+
+                                                                //Agregando al inventario del usuario su compra:
+                                                                
                                                                 
                                                                 //Avisando lo que compró
                                                                 System.out.println("\nCompra exitosa: Se adquirieron " + cantidad_comprar + " unidades de " + farmaco_seleccionado.getNombre_objeto());
