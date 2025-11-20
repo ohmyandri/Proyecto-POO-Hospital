@@ -54,7 +54,11 @@ public abstract class Persona {
     public void setNumero_telefono(long numero_telefono) {
         this.numero_telefono = numero_telefono;
     }
-
+    
+    public Map<Farmaco, Integer> getInventario() {
+        return inventario;
+    }
+    
     //Metodo que se podra sobreescribir:
     public void imprimir_detalles(){
         System.out.println("Nombre: " + nombre_persona);
@@ -63,12 +67,6 @@ public abstract class Persona {
         System.out.println("Numero de telefono: " + numero_telefono);
     }
 
-    public void bienvenida(){
-    }
-
-    public Map<Farmaco, Integer> getInventario() {
-        return inventario;
-    }
     //Metodo bajar dinero:
     public void bajarDinero(double precio){
         this.dinero -= precio;

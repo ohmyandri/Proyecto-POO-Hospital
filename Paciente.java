@@ -44,6 +44,11 @@ public class Paciente extends Persona{
         this.numero_seguro_social = numero_seguro_social;
     }
 
+    public void setPassword_seguro_social(String password_seguro_social){
+            this.password_seguro_social = password_seguro_social;
+        }
+    
+    //Metodos relacionados a las citas del paciente:
     //Agregando una cita:
     public void agregar_cita(Cita cita_agendada){
         citas_agendadas.add(cita_agendada);
@@ -53,11 +58,7 @@ public class Paciente extends Persona{
         citas_agendadas.remove(cita_agendada);
     }
 
-    public void setPassword_seguro_social(String password_seguro_social){
-        this.password_seguro_social = password_seguro_social;
-    }
-
-    //Sobre escribiendo el metodo de la clase abstracta Persona
+    //Sobre escribiendo el metodo de la clase abstracta Persona para ver sus detalles
     @Override
     public void imprimir_detalles() {
         super.imprimir_detalles(); 
@@ -67,11 +68,13 @@ public class Paciente extends Persona{
         System.out.println("Citas Agendadas: " + getCitas_agendadas().size());
     }
 
+    //Sobre escribiendo el metodo de la clase abstracta persona para ver el monedero
     @Override
     public void visualizarMonedero(){
         System.out.println("\nMonto disponible: " + getDinero());
     }
 
+    //Sobre escribiendo el metodo de la clase abstracta persona para ver el inventario
     @Override
     public void visualizarInventario(){
         // Verificar si el mapa contiene elementos (entry sets)
