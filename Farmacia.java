@@ -29,4 +29,12 @@ public class Farmacia {
     public List <Farmaco> getFarmacos_disponibles(){
         return farmacos_disponibles;
     }
+
+    //bajando la cantidad de estock:
+    public void bajarStock(int i, int cantidad){
+        Farmaco farmaco_comprar = this.farmacos_disponibles.get(i);
+        //Cambiando stock
+        int nuevo_stock = farmaco_comprar.getStock_disponible() - cantidad;
+        this.farmacos_disponibles.get(i).setStock_disponible(nuevo_stock);
+    }
 }

@@ -3,22 +3,23 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         try (Scanner sc = new Scanner(System.in)) {
-            //Creando objeto hospital con su constructor.
-            Hospital hospital = new Hospital("La Raza", "Azcapotzalco");
-            //Dando una bienvenida al sistema de agendar citas:
-            System.out.println("Sistema agendar citas del hospital: " + hospital.getNombre_hospital());
-            System.out.println("Ubicacion: " + hospital.getDireccion_hospital());
-
-            //Creando doctores
-            Doctor doctor_1 = new Doctor("Dr. Dominguez", "Avenida Central 101", 32, 552233445, "Medicina interna", 15);
-            Doctor doctor_2 = new Doctor("Dra. Ramírez", "Calle Falsa 123", 35, 551234567, "Pediatría", 8);
-            Doctor doctor_3 = new Doctor("Dr. Pérez", "Avenida Siempre Viva 742", 45, 557654321, "Cardiología", 20);        
-            
             //Creando encargada de la farmacia
             EncargadaFarmacia encargada_Farmacia = new EncargadaFarmacia("Lupita", null, 48, 559119110);
             
             //Creando la farmacia:
             Farmacia farmacia_hospital = new Farmacia(encargada_Farmacia);
+            //Creando objeto hospital con su constructor.
+            Hospital hospital = new Hospital("La Raza", "Azcapotzalco", farmacia_hospital);
+            //Dando una bienvenida al sistema de agendar citas:
+            System.out.println("Sistema agendar citas del hospital: " + hospital.getNombre_hospital());
+            System.out.println("Ubicacion: " + hospital.getDireccion_hospital());
+            //debug
+            hospital.agregar_derecho_habiente(new Paciente("andrick", "Ignacio", 20, 557912781, "cosa", 123, "123"));
+            //Creando doctores
+            Doctor doctor_1 = new Doctor("Dr. Dominguez", "Avenida Central 101", 32, 552233445, "Medicina interna", 15);
+            Doctor doctor_2 = new Doctor("Dra. Ramírez", "Calle Falsa 123", 35, 551234567, "Pediatría", 8);
+            Doctor doctor_3 = new Doctor("Dr. Pérez", "Avenida Siempre Viva 742", 45, 557654321, "Cardiología", 20);        
+            
 
             //Agregando doctores a la lista de doctores del hospital
             hospital.agregar_doctor(doctor_1);
@@ -52,7 +53,6 @@ public class Main {
                             //Agregando derecho habiente a la lista de derecho habientes del hospital
                             hospital.agregar_derecho_habiente(nueva_persona);
                             break;
-
                         
                         case 2:
                         //Try catch para seleccionar derecho habiente, esto evitando errores, y manejandolos correctamente
@@ -68,14 +68,15 @@ public class Main {
 
                             //Menu Interno => PACIENTE
                             int eleccion = 0;
-                            while (eleccion != 6 && derecho_habiente_temporal != null) {
+                            while (eleccion != 7 && derecho_habiente_temporal != null) {
                                 System.out.println("\nMENÚ PRINCIPAL");
                                 System.out.println("1. Crear y agendar una nueva cita");
                                 System.out.println("2. Visualizar mis citas agendadas");
                                 System.out.println("3. Modificar una cita agendada");
                                 System.out.println("4. Cancelar una cita agendada");
                                 System.out.println("5. Ingresar a la farmacia del hospital:");
-                                System.out.println("6. Salir del sistema");
+                                System.out.println("6. Visualizar monedero e inventario:");
+                                System.out.println("7. Salir del sistema");
                                 System.out.print("Ingrese su opción: ");
                                 
                                 //Leyendo entrada del usuario
@@ -193,35 +194,152 @@ public class Main {
                                     //Farmacia Ingresar
                                     case 5:
                                         while(true){
-                                        //Display de productos de la farmacia:
+                                            //Diciendo al usuario cuanto dinero tiene:
+                                            System.out.println("\nFarmacia Hospitalaria");
+                                            System.out.println("Dinero actual: $" + derecho_habiente_temporal.getDinero());
+                                            
+                                            //Mostrar productos
                                             farmacia_hospital.getEncargadaFarmacia().ver_todos_detalles_objetos(hospital);
-                                            int farmaco_deseado = 0;
-                                            //Preguntando cual farmaco desea:
-                                            while(farmaco_deseado == 0){
-                                                try {
-                                                    System.out.print("Ingresa el numero del farmaco deseado: ");
-                                                    farmaco_deseado = sc.nextInt() - 1; //restamos uno para hacerlo 0 index
-                                                    break;
-                                                } catch (Exception e) {
-                                                    System.out.println("Ingresa un numero");
+                                            
+                                            int farmaco_deseado = -1; 
+                                            int comprar = 0;
+                                            
+                                            //Preguntar si desea comprar
+                                            System.out.println("Desea comprar algo en la farmacia? [1. Si 2. No]");
+                                            
+                                            try {
+                                                //Lectura de opción de compra
+                                                if (!sc.hasNextInt()) {
+                                                    System.out.println("Ingrese un número entero válido (1 o 2).");
+                                                    sc.nextLine(); 
+                                                    continue;
                                                 }
-                                            }
+                                                comprar = sc.nextInt(); 
+                                                sc.nextLine(); //Limpiar buffer
+                                                
+                                                //Lógica de compra
+                                                if(comprar == 1){ 
+                                                    
+                                                    //Bucle para capturar el fármaco deseado (y validar índice)
+                                                    while(true){ 
+                                                        try {
+                                                            System.out.print("Ingresa el numero del farmaco deseado: ");
+                                                            
+                                                            if (!sc.hasNextInt()) {
+                                                                System.out.println("ERROR: Ingrese un número entero válido.");
+                                                                sc.nextLine(); 
+                                                                continue;
+                                                            }
+                                                            
+                                                            farmaco_deseado = sc.nextInt() - 1;
+                                                            sc.nextLine(); //Limpiar buffer
+                                                            
+                                                            //Validar si el índice está dentro de los límites
+                                                            if (farmaco_deseado >= 0 && farmaco_deseado < farmacia_hospital.getFarmacos_disponibles().size()) {
+                                                                break; //Índice válido, salir del bucle de selección
+                                                            } else {
+                                                                System.out.println("Opción de fármaco inválida.");
+                                                                farmaco_deseado = -1; //Resetear para continuar en el bucle
+                                                            }
+                                                        } catch (Exception e) {
+                                                            System.out.println("Ingresa un número válido.");
+                                                            sc.nextLine(); //Limpiar buffer después del error
+                                                        }
+                                                    }
 
-                                            if(farmacia_hospital.getFarmacos_disponibles().get(farmaco_deseado).getStock_disponible() > 0){
-                                                System.out.println("Se agrego el objeto a su inventario, y se le resto el precio!!!");
-                                            }
+                                                    //Procesar la compra
+                                                    if (farmaco_deseado >= 0) { // Si se seleccionó un fármaco válido
+                                                        
+                                                        Farmaco farmaco_seleccionado = farmacia_hospital.getFarmacos_disponibles().get(farmaco_deseado);
+                                                        int stock_disponible = farmaco_seleccionado.getStock_disponible();
+                                                        int cantidad_comprar = 0;
 
-                                            //Preguntando si desea salir:
-                                            System.out.println("Desea salir del sistema de farmacia? [S(si)/N(No)]");
+                                                        //Verificar el stock inicial
+                                                        if (stock_disponible > 0) {
+                                                            
+                                                            // Bucle de Validación para la Cantidad y Stock
+                                                            while (true) {
+                                                                System.out.println("\nStock disponible de " + farmaco_seleccionado.getNombre_objeto() + ": " + stock_disponible);
+                                                                System.out.print("¿Cuántas unidades desea comprar?: ");
+                                                                
+                                                                if (!sc.hasNextInt()) {
+                                                                    System.out.println("ERROR: Ingrese un número entero válido.");
+                                                                    sc.nextLine(); 
+                                                                    continue;
+                                                                }
+                                                                
+                                                                cantidad_comprar = sc.nextInt();
+                                                                sc.nextLine(); //Limpiar Buffer
+                                                                
+                                                                // Validar la cantidad
+                                                                if(cantidad_comprar <= 0) {
+                                                                    System.out.println("Intentas comprar unidades negativas: La cantidad debe ser mayor a cero.");
+                                                                } else if (cantidad_comprar > stock_disponible) {
+                                                                    System.out.println("No hay suficiente stock: Solo hay " + stock_disponible + " unidades disponibles en stock.");
+                                                                } else {
+                                                                    break; 
+                                                                }
+                                                            }
+                                                            
+                                                            //Realizar la Transacción
+                                                            double precio_unitario = farmaco_seleccionado.getPrecio();
+                                                            double costo_total = precio_unitario * cantidad_comprar;
+                                                            
+                                                            //Validacion de tener dinero suficiente
+                                                            if (derecho_habiente_temporal.getDinero() >= costo_total) {
+                                                                
+                                                                //Restando el dinero
+                                                                derecho_habiente_temporal.bajarDinero(costo_total);
+                                                                
+                                                                //Actualizando el stock
+                                                                farmacia_hospital.bajarStock(farmaco_deseado, cantidad_comprar);
+                                                                
+                                                                //Avisando lo que compró
+                                                                System.out.println("\nCompra exitosa: Se adquirieron " + cantidad_comprar + " unidades de " + farmaco_seleccionado.getNombre_objeto());
+                                                                System.out.println("Costo total: $" + costo_total);
+                                                                
+                                                            } else {
+                                                                System.out.println("\nDinero insuficiente. No se pudo completar la compra.");
+                                                                System.out.println("Necesitas $" + costo_total + ", pero solo tienes $" + derecho_habiente_temporal.getDinero());
+                                                            }
+                                                            
+                                                        } else {
+                                                            //El stock era 0 desde el principio
+                                                            System.out.println("El fármaco seleccionado (" + farmaco_seleccionado.getNombre_objeto() + ") no tiene stock disponible.");
+                                                        }
+                                                    }
+                                                    
+                                                } else if (comprar == 2) {
+                                                    //Si no desea comprar, salimos de la farmacia.
+                                                    break; 
+                                                } else {
+                                                    System.out.println("Opción inválida. Intente de nuevo.");
+                                                }
+                                            
+                                            } catch (Exception InputMismatchException) {
+                                                System.out.println("Intentaste escribir algo distinto a un número, prueba de nuevo.");
+                                                sc.nextLine(); // Limpiar buffer después del error
+                                                continue; // Volver al inicio del while(true) principal
+                                            }
+                                            
+                                            //Preguntar si desea salir (solo si se queda en el bucle después de la compra)
+                                            System.out.println("\nDesea salir del sistema de farmacia? [S(si)/N(No)]");
                                             String decision = sc.nextLine();
-                                            if(decision.equals("Y")){
-                                                break;
+                                            if(decision.equalsIgnoreCase("S")){
+                                                break; //Salir del while(true)
                                             }
                                         }
                                         break;
-
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    //Visualizar inventario y el monedero
                                     case 6:
-                                        eleccion = 6;
+                                        derecho_habiente_temporal.visualizarMonedero();
+                                        derecho_habiente_temporal.visualizarInventario();
+                                    case 7:
                                         derecho_habiente_temporal = null;
 
                                     default:
@@ -231,8 +349,8 @@ public class Main {
                         }
 
                         //Catch para manejar la excepcion
-                        catch (Exception e) {
-                            System.out.println("Hubo un error al seleccionar y/o visualizar derecho habiente");
+                        catch (Exception InputMismatchException) {
+                            System.out.println("Por favor utiliza solo numeros");
                         }
                             
                         break;

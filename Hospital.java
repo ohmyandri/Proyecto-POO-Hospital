@@ -15,13 +15,14 @@ public class Hospital {
     private Farmacia farmacia_hospital;
     
     //Constructor:
-    public Hospital(String nombre_hospital, String direccion_hospital){
+    public Hospital(String nombre_hospital, String direccion_hospital, Farmacia farmacia_hospital){
         this.nombre_hospital = nombre_hospital;
         this.direccion_hospital = direccion_hospital;
         this.lista_doctores = new ArrayList<>();
         this.lista_pacientes = new ArrayList<>();
         this.lista_derecho_habientes = new ArrayList<>();
         this.lista_citas_hospital = new ArrayList<>();
+        this.farmacia_hospital = farmacia_hospital;
     }
 
     //getters y setters para los atributos
@@ -121,6 +122,7 @@ public class Hospital {
             //Pidiendo usuario
             System.out.print("Ingresa tu NSS: ");
             user_NSS = sc.nextLong();
+            sc.nextLine();
             System.out.print("Ingresa tu contraseña: ");
             password_NSS = sc.nextLine();
             

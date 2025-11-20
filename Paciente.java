@@ -67,13 +67,23 @@ public class Paciente extends Persona{
     }
 
     @Override
-    public void ver_inventario(){
-        try {
-            for(int i = 0; i < inventario.size(); i++){
-                inventario.get(i).ver_detalles_objeto();;
+    public void visualizarMonedero(){
+        System.out.println("Monto disponible: " + getDinero());
+    }
+
+    @Override
+    public void visualizarInventario(){
+        if(this.inventario.size() > 0){
+            System.out.println("Inventario: " + getDinero());
+            for (int i = 0; i < this.inventario.size(); i++) {
+                System.out.println("Objeto [" + (i+1) + "]");
+                //Detalles de objeto:
+                System.out.println("Objeto: " + this.inventario.get(i).getNombre_objeto());
             }
-        } catch (Exception e) {
-            System.out.println("Error inesperado, pruebe de nuevo");
         }
+        else{
+            System.out.println("No tienes objetos guardados");
+        }
+        
     }
 }

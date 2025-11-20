@@ -13,7 +13,7 @@ public class EncargadaFarmacia extends Persona {
 
     public void ver_todos_detalles_objetos(Hospital hospital){
         for(int i = 0; i < hospital.getFarmacia().getFarmacos_disponibles().size(); i++){
-            System.out.println("Farmaco [" + i + "]");
+            System.out.println("\nFarmaco [" + (i+1) + "]");
             hospital.getFarmacia().getFarmacos_disponibles().get(i).ver_detalles_objeto();
         }
     }

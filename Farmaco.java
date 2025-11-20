@@ -28,6 +28,10 @@ public class Farmaco extends Objeto{
     public int getTabletas(){
         return this.tabletas;
     }
+
+    public void setStock_disponible(int stock_disponible){
+        this.stock_disponible = stock_disponible;
+    }
     
     @Override
     public void ver_detalles_objeto(){

@@ -35,6 +35,9 @@ public abstract class Persona {
     public long getNumero_telefono() {
         return numero_telefono;
     }
+    public double getDinero(){
+        return dinero;
+    }
 
     public void setNombre_persona(String nombre_persona) {
         this.nombre_persona = nombre_persona;
@@ -63,6 +66,19 @@ public abstract class Persona {
     public void bienvenida(){
     }
 
-    public void ver_inventario(){
+    public List <Objeto> getInventario(){
+        return inventario;
+    }
+    //Metodo bajar dinero:
+    public void bajarDinero(double precio){
+        this.dinero -= precio;
+    }
+    
+    //Metodo para ver los detalles del inventario:
+    public void visualizarInventario(){
+    }
+
+    //metodo para visualizar el inventario y el monedero:
+    public void visualizarMonedero(){
     }
 }
